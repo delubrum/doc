@@ -18,7 +18,8 @@
                     <div class="form-group">
                         <label>* Título:</label>
                         <div class="input-group">
-                            <input class="form-control" name="title" required>
+                            <input class="form-control" name="title" value="<?php echo isset($id) ? $id->title : '' ?>" required>
+                            <input class="form-control" name="id" value="<?php echo isset($id) ? $id->id : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -29,8 +30,8 @@
                         <div class="input-group">
                             <select class="form-control" name="type">
                                 <option></option>
-                                <option>Tipo 1</option>
-                                <option>Tipo 2</option>
+                                <option <?php echo (isset($id) and $id->type == 'Tipo 1') ? 'selected' : ''; ?>>Tipo 1</option>
+                                <option <?php echo (isset($id) and $id->type == 'Tipo 2') ? 'selected' : ''; ?>>Tipo 2</option>
                             </select>
                         </div>
                     </div>
@@ -49,7 +50,7 @@
                     <div class="form-group">
                         <label>* Código de referencia:</label>
                         <div class="input-group">
-                            <input class="form-control" name="code" >
+                            <input class="form-control" name="code" value="<?php echo isset($id) ? $id->code : '' ?>" required>
                         </div>
                     </div>
                 </div>
@@ -58,7 +59,7 @@
                     <div class="form-group">
                         <label>* Fecha:</label>
                         <div class="input-group">
-                            <input type="date" class="form-control" name="date" >
+                            <input type="date" class="form-control" name="date" value="<?php echo isset($id) ? $id->date : '' ?>" required>
                         </div>
                     </div>
                 </div>
@@ -67,7 +68,7 @@
                     <div class="form-group">
                         <label>* Ubicación:</label>
                         <div class="input-group">
-                            <input class="form-control" name="location" >
+                            <input class="form-control" name="location" value="<?php echo isset($id) ? $id->location : '' ?>" required>
                         </div>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
                     <div class="form-group">
                         <label>* Páginas / Folios:</label>
                         <div class="input-group">
-                            <input type="number" step="1" class="form-control" name="pages" >
+                            <input type="number" step="1" class="form-control" name="pages" value="<?php echo isset($id) ? $id->pages : '' ?>" required>
                         </div>
                     </div>
                 </div>
@@ -94,7 +95,7 @@
                     <div class="form-group">
                         <label>* Centro de Documentación:</label>
                         <div class="input-group">
-                            <input class="form-control" name="docCenter" >
+                            <input class="form-control" name="docCenter" value="<?php echo isset($id) ? $id->docCenter : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -103,7 +104,7 @@
                     <div class="form-group">
                         <label>* Reseña Institucional:</label>
                         <div class="input-group">
-                            <input class="form-control" name="review" >
+                            <input class="form-control" name="review" value="<?php echo isset($id) ? $id->review : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -121,7 +122,7 @@
                     <div class="form-group">
                         <label>* Tema:</label>
                         <div class="input-group">
-                            <input class="form-control" name="subject" >
+                            <input class="form-control" name="subject" value="<?php echo isset($id) ? $id->subject : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -131,7 +132,7 @@
                     <div class="form-group">
                         <label>* Descripción / Resumen:</label>
                         <div class="input-group">
-                            <textarea class="form-control" name="description" ></textarea>
+                            <textarea class="form-control" name="description"><?php echo isset($id) ? $id->description : '' ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -140,7 +141,7 @@
                     <div class="form-group">
                         <label>* Palabras Clave:</label>
                         <div class="input-group">
-                            <select class="form-control select2_tags" style="width:100%" name="keywords[]" multiple="multiple" >
+                            <select class="form-control select2_tags" style="width:100%" name="keywords[]" multiple="multiple" required>
                             </select>
                         </div>
                     </div>
@@ -159,10 +160,10 @@
                     <div class="form-group">
                         <label>* Idioma / Lengua:</label>
                         <div class="input-group">
-                            <select class="form-control" name="lang" >
+                            <select class="form-control" name="lang" required>
                                 <option></option>
-                                <option>Español</option>
-                                <option>Inglés</option>
+                                <option <?php echo (isset($id) and $id->type == 'Español') ? 'selected' : ''; ?>>Español</option>
+                                <option <?php echo (isset($id) and $id->type == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
                             </select>
                         </div>
                     </div>
@@ -173,7 +174,7 @@
                     <div class="form-group">
                         <label>* Condiciones de Acceso:</label>
                         <div class="input-group">
-                            <textarea class="form-control" name="access" ></textarea>
+                            <textarea class="form-control" name="access"><?php echo isset($id) ? $id->access : '' ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -182,7 +183,7 @@
                     <div class="form-group">
                         <label>* Condiciones de Reproducción:</label>
                         <div class="input-group">
-                            <textarea class="form-control" name="reproduce" ></textarea>
+                            <textarea class="form-control" name="reproduce"><?php echo isset($id) ? $id->reproduce : '' ?></textarea>
                         </div>
                     </div>
                 </div>
@@ -198,7 +199,7 @@
             <div class="col-sm-12">
                 <div class="form-group">
                     <div class="input-group">
-                        <textarea class="form-control" name="notes" ></textarea>
+                        <textarea class="form-control" name="notes"><?php echo isset($id) ? $id->notes : '' ?></textarea>
                     </div>
                 </div>
             </div>
@@ -215,7 +216,10 @@
 </form>
 
 <script>
-$('.select2_tags').select2({tags:true,});
+$('.select2_tags').select2({tags:true,<?php echo isset($id) ? "data: " . $id->keywords : '' ?>});
+<?php if(isset($id)) { ?>
+$('.select2_tags').val(<?php echo $id->keywords ?>).trigger('change')
+<?php } ?>
 
 $(document).on('submit', '#New_Form', function(e) {
     e.preventDefault();

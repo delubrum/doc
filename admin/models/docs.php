@@ -18,7 +18,6 @@ class Docs {
             FROM docs
             WHERE 1=1
             $filters
-            ORDER BY id DESC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -38,25 +37,6 @@ class Docs {
         } catch (Exception $e) {
             die($e->getMessage());
         }
-    }
-
-    public function save($item) {
-        $keys = '';
-        $vals = '';
-        foreach ($item as $k => $v) {
-            $vals .= "'$v" . "',";
-            $keys .= $k .',';
-        }
-        $keys = rtrim($keys, ",");
-        $vals = rtrim($vals, ",");
-        try {
-            $sql = "INSERT INTO docs ($keys) VALUES ($vals)";
-			$this->pdo->prepare($sql)->execute();
-            return $this->pdo->lastInsertId();
-        }
-            catch (Exception $e) {
-            die($e->getMessage());
-        }    
     }
 
 }

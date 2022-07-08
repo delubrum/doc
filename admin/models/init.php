@@ -75,4 +75,47 @@ class Init {
         }
     }
 
+    public function save($table,$item) {
+        $keys = '';
+        $vals = '';
+        foreach ($item as $k => $v) {
+            $vals .= "'$v" . "',";
+            $keys .= $k .',';
+        }
+        $keys = rtrim($keys, ",");
+        $vals = rtrim($vals, ",");
+        try {
+            $sql = "INSERT INTO $table ($keys) VALUES ($vals)";
+			$this->pdo->prepare($sql)->execute();
+            return $this->pdo->lastInsertId();
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }    
+    }
+
+    public function update($table,$item,$id) {
+        $vals = '';
+        foreach ($item as $k => $v) {
+            $vals .= $k . " = '$v" . "',";
+        }
+        $vals = rtrim($vals, ",");
+        try {
+            $sql = "UPDATE $table SET $vals WHERE id = '$id'";
+            $this->pdo->prepare($sql)->execute();
+            return $sql;
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function delete($table,$id) {
+        try {
+            $stm = $this->pdo->prepare("DELETE FROM $table WHERE id = ?");
+            $stm->execute(array($id));
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 }
