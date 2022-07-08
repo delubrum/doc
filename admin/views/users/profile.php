@@ -4,7 +4,7 @@
 
 <?php if ($b == 'Edit') { ?>
 <div class="modal-header">
-	<h5 class="modal-title">Edit User</b></h5>
+	<h5 class="modal-title">Editar Usuario</b></h5>
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
 	</button>
@@ -41,7 +41,7 @@
 					<div class="card-body">
 						<div class="d-flex flex-column">
 							<div class="mt-3">
-								<h3>Permissions</h3>
+								<h3>Permisos</h3>
 							</div>
 						</div>
 
@@ -70,7 +70,8 @@
 							<div class="row mt-3">
 							<?php  if (in_array(2, $permissions)) { ?>
 								<div class="col-12 text-right">
-									<button type="submit" class="btn btn-primary">Update</button>
+								<input type="hidden" name="userId" value="<?php echo $user->id ?>">
+									<button type="submit" class="btn btn-primary">Actualizar</button>
 								</div>
 								<?php  } ?>
 							</div>

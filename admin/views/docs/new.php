@@ -19,7 +19,7 @@
                         <label>* Título:</label>
                         <div class="input-group">
                             <input class="form-control" name="title" value="<?php echo isset($id) ? $id->title : '' ?>" required>
-                            <input class="form-control" name="id" value="<?php echo isset($id) ? $id->id : '' ?>">
+                            <input type="hidden" name="id" value="<?php echo isset($id) ? $id->id : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
 
                 <div class="col-sm-3">
                     <div class="form-group">
-                        <label>* Código de referencia:</label>
+                        <label>* Código del Centro de Documentación:</label>
                         <div class="input-group">
                             <input class="form-control" name="code" value="<?php echo isset($id) ? $id->code : '' ?>" required>
                         </div>
@@ -95,7 +95,7 @@
                     <div class="form-group">
                         <label>* Centro de Documentación:</label>
                         <div class="input-group">
-                            <input class="form-control" name="docCenter" value="<?php echo isset($id) ? $id->docCenter : '' ?>">
+                            <input class="form-control" name="centre" value="<?php echo isset($id) ? $id->docCenter : '' ?>">
                         </div>
                     </div>
                 </div>

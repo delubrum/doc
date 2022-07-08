@@ -90,7 +90,6 @@ class UsersController{
 
   public function UserPermissionsSave(){
     $item = new stdClass();
-    $item->roleId=$_REQUEST['roleId'];
     $item->userId=$_REQUEST['userId'];
     $item->permissions=json_encode($_REQUEST['permissions']);
     $this->users->userPermissionsSave($item);

@@ -47,6 +47,29 @@ class DocsController{
     }
   }
 
+  public function Public(){
+    (!empty($_REQUEST)) ? $filters = '': $filters = '  ORDER BY id DESC LIMIT 10';
+    (!empty($_REQUEST['code'])) ? $filters .= " and code ='" . $_REQUEST['code']."'": $filters .= "";
+    (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
+    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
+    (!empty($_REQUEST['pages'])) ? $filters .= " and pages ='" . $_REQUEST['pages']."'": $filters .= "";
+    (!empty($_REQUEST['lang'])) ? $filters .= " and lang ='" . $_REQUEST['lang']."'": $filters .= "";
+    (!empty($_REQUEST['from'])) ? $filters .= " and date  >='" . $_REQUEST['from']."'": $filters .= "";
+    (!empty($_REQUEST['to'])) ? $filters .= " and date <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
+    if((!empty($_REQUEST['keywords']))) {
+      $ids = '';
+      foreach($_REQUEST['keywords'] as $p) {
+        foreach($this->docs->list(" and keywords LIKE '%$p%' ") as $r) { 
+          $ids .= $r->id . ',';
+        }
+      }
+      $ids = rtrim($ids, ',');
+      ($ids != '') ? $filters .= " and id IN ($ids)" : $filters .= ' and id = 0';
+      
+    }
+      require_once 'views/docs/public.php';
+  }
+
   public function New(){
     isset($_REQUEST['id']) ? $id = $this->docs->get($_REQUEST['id']) : '';
     require_once 'views/docs/new.php';

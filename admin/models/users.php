@@ -116,7 +116,7 @@ class Users {
 
     public function userSave($item) {
         try {
-            $sql = "INSERT INTO users (role,username,email,password,lang) VALUES (3,?,?,?,?)";
+            $sql = "INSERT INTO users (username,email,password,lang) VALUES (?,?,?,?)";
 			$this->pdo->prepare($sql)->execute(
                 array(
                     $item->name,
@@ -164,13 +164,6 @@ class Users {
             $this->pdo->prepare($sql)->execute(
                 array(
                     $item->permissions,
-                    $item->userId
-                )
-            );
-            $sql = "UPDATE users SET role = ? WHERE id = ?";
-            $this->pdo->prepare($sql)->execute(
-                array(
-                    $item->roleId,
                     $item->userId
                 )
             );

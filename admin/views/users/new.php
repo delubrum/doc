@@ -14,7 +14,7 @@
             <?php } ?>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Full Name</h6>
+                        <h6 class="mb-0">Nombre</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="text" class="form-control" name="name" value="<?php echo (isset($user->id) and $a == 'Profile') ? $user->username : '';  ?>">
@@ -30,6 +30,7 @@
                         <input type="email" class="form-control" name="email" value="<?php echo (isset($user->id) and $a == 'Profile') ? $user->email : ''  ?>">
                     </div>
                 </div>
+                 <!--
                 <div class="row mb-3">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Language</h6>
@@ -41,6 +42,9 @@
                         </select>
                     </div>
                 </div>
+
+                -->
+                <input type="hidden" name="lang" value="es">
                 <!-- <div class="row mb-3">
                     <div class="col-sm-3">
                         <h6 class="mb-0">Email Password</h6>
@@ -51,7 +55,7 @@
                 </div> -->
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">New Password</h6>
+                        <h6 class="mb-0">Nueva Contraseña</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="password" minlength="4" id="newpass" name="newpass" class="form-control">
@@ -59,7 +63,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-3">
-                        <h6 class="mb-0">Confirm New Password</h6>
+                        <h6 class="mb-0">Confirmación Nueva Contraseña</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
                         <input type="password" minlength="4" id="cpass" name="cpass" class="form-control">
@@ -78,7 +82,7 @@
     <?php if ($a != 'Profile') { ?>
     </div>
     <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
     <?php } ?>
 </form>
