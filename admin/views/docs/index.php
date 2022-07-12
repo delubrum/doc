@@ -82,7 +82,6 @@
                                     <select class="form-control" name="lang" >
                                         <option></option>
                                         <option <?php echo (!empty($_POST) and $_POST['lang'] == 'Español') ? 'selected' : ''; ?>>Español</option>
-                                        <option <?php echo (!empty($_POST) and $_POST['lang'] == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,14 +90,14 @@
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Desde:</label>
-                                <input type="date" class="form-control date" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : '' ?>">
+                                <input type="number" class="form-control date" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : '' ?>">
                             </div>
                         </div>
 
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Hasta:</label>
-                                <input type="date" class="form-control date" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : '' ?>">
+                                <input type="number" class="form-control date" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : '' ?>">
                             </div>
                         </div>
 

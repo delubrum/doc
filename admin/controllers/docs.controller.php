@@ -19,14 +19,14 @@ class DocsController{
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-DOCS"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
-    (!empty($_REQUEST)) ? $filters = '': $filters = '  ORDER BY id DESC LIMIT 10';
+    (!empty($_REQUEST)) ? $filters = '': $filters = '';
     (!empty($_REQUEST['code'])) ? $filters .= " and code ='" . $_REQUEST['code']."'": $filters .= "";
     (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
     (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
     (!empty($_REQUEST['pages'])) ? $filters .= " and pages ='" . $_REQUEST['pages']."'": $filters .= "";
     (!empty($_REQUEST['lang'])) ? $filters .= " and lang ='" . $_REQUEST['lang']."'": $filters .= "";
-    (!empty($_REQUEST['from'])) ? $filters .= " and date  >='" . $_REQUEST['from']."'": $filters .= "";
-    (!empty($_REQUEST['to'])) ? $filters .= " and date <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
+    (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
+    (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
     
     if((!empty($_REQUEST['keywords']))) {
       $ids = '';

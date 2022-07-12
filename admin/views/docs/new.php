@@ -14,7 +14,7 @@
             <div class="card-body row">
 
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>* Título:</label>
                         <div class="input-group">
@@ -24,7 +24,26 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>* Autor:</label>
+                        <div class="input-group">
+                            <input class="form-control" name="author" value="<?php echo isset($id) ? $id->author : '' ?>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>* Tipo:</label>
+                        <div class="input-group">
+                            <input class="form-control" name="type" value="<?php echo isset($id) ? $id->type : '' ?>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label>* Tipo:</label>
                         <div class="input-group">
@@ -36,6 +55,7 @@
                         </div>
                     </div>
                 </div>
+                -->
 
             </div>
         </div>
@@ -55,11 +75,20 @@
                     </div>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
-                        <label>* Fecha:</label>
+                        <label>* Año Inicio:</label>
                         <div class="input-group">
-                            <input type="date" class="form-control" name="date" value="<?php echo isset($id) ? $id->date : '' ?>" required>
+                            <input type="number" class="form-control" name="start" value="<?php echo isset($id) ? $id->start : '' ?>" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>* Año Fin:</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control" name="end" value="<?php echo isset($id) ? $id->end : '' ?>" required>
                         </div>
                     </div>
                 </div>
@@ -73,7 +102,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label>* Páginas / Folios:</label>
                         <div class="input-group">
@@ -163,7 +192,6 @@
                             <select class="form-control" name="lang" required>
                                 <option></option>
                                 <option <?php echo (isset($id) and $id->type == 'Español') ? 'selected' : ''; ?>>Español</option>
-                                <option <?php echo (isset($id) and $id->type == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
                             </select>
                         </div>
                     </div>

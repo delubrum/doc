@@ -145,7 +145,7 @@
             <div class="form-group">
                 <label>Palabras Clave:</label>
                 <div class="input-group">
-                <?php foreach(json_decode($id->keywords) as $p) { echo $p . ", "; } ?>
+                <?php if (!empty($r->keywords)) { foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } } ?>
                 </div>
             </div>
         </div>

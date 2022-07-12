@@ -15,12 +15,12 @@
         <?php foreach($this->docs->list($filters) as $r) { ?>
         <tr>
             <td><?php echo $r->code; ?></td>
-            <td><?php echo $r->date; ?></td>
+            <td><?php echo ($r->start <> '0000') ? $r->start . " - " . $r->end : '' ?></td>
             <td><?php echo $r->title; ?></td>
             <td><?php echo $r->location; ?></td>
             <td><?php echo $r->pages; ?></td>
             <td><?php echo $r->lang; ?></td>
-            <td><?php foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } ?></td>
+            <td><?php if (!empty($r->keywords)) { foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } } ?></td>
             <td class="text-right">
                 <a class="btn btn-primary text-white m-1" style="cursor:pointer" data-toggle="tooltip" data-placement="top" href="?c=Docs&a=Detail&id=<?php echo $r->id; ?>" target="_blank" data-status="view" data-title="Ver Documento" title="Ver"><i class="fas fa-eye"></i></a>
                 <?php if(isset($permissions)) { ?>
