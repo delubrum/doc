@@ -72,9 +72,9 @@
           <li><a class="nav-link scrollto" href="../#contact">Contacto</a></li>
           <li class="dropdown" ><a class="active" href="#"><span>Busquedas</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
-              <li><a href="#">Inventario Documental</a></li>
-              <li><a href="#">Centro Documental</a></li>
+              <li><a href="?c=Docs&a=Public">Base de datos descripción documental</a></li>
+              <li><a href="#">Base de datos inventario documental</a></li>
+              <li><a href="#">Base de datos centros de documentación</a></li>
             </ul>
           </li>
         </ul>
@@ -90,7 +90,7 @@
     <div class="container-fluid">
         <div class="row m-2">
             <div class="col-sm-12">
-                <h1 class="m-0 text-dark">Descripción Documental</h1>
+                <h1 class="m-0 text-dark">Base de datos descripción documental</h1>
             </div>
         </div>
     </div>
