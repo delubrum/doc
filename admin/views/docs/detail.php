@@ -69,21 +69,21 @@
                 </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-1">
             <label>Fecha:</label>
             <div class="input-group">
-                <?php echo $id->date ?>
+            <?php echo ($id->start <> '0000') ? $id->start . " - " . $id->end : '' ?>
             </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-6">
             <label>Ubicación:</label>
             <div class="input-group">
                 <?php echo $id->location ?>
             </div>
         </div>
 
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <label>Páginas / Folios:</label>
             <div class="input-group">
                 <?php echo $id->pages ?>
@@ -102,13 +102,13 @@
         <div class="col-sm-6">
             <label>Centro de Documentación:</label>
             <div class="input-group">
-            <?php echo $id->docCenter ?>
+            <?php echo $id->centre ?>
             </div>
         </div>
 
         <div class="col-sm-6">
             <label>Reseña Institucional:</label>
-            <div class="input-group">
+            <div class="input-group text-justify">
                 <?php echo $id->review ?>
             </div>
         </div>
@@ -135,7 +135,7 @@
         <div class="col-sm-4">
             <div class="form-group">
                 <label>Descripción / Resumen:</label>
-                <div class="input-group">
+                <div class="input-group text-justify">
                 <?php echo $id->description ?>
                 </div>
             </div>
@@ -197,7 +197,7 @@
     <div class="card-body row">
     <div class="col-sm-12">
         <div class="form-group">
-            <div class="input-group">
+            <div class="input-group text-justify">
             <?php echo $id->notes ?>
             </div>
         </div>
