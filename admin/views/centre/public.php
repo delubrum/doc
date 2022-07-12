@@ -174,7 +174,7 @@
             </div>
         </div>
         <?php // if($filters) { ?>     
-        <div class="card p-4 listTable">
+        <div class="card p-4 listTable table-responsive">
             <?php require_once 'list.php' ?>        
         </div>
         <?php // } ?>   
