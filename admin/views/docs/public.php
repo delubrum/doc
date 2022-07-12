@@ -42,6 +42,10 @@
     body{
         background:#f4f6f9;
     }
+
+     table th, table td{
+        padding:10px !important;
+     }
 </style>
 
 </head>
