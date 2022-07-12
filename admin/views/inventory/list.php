@@ -4,30 +4,29 @@
             <th>Código</th>
             <th>Fecha</th>
             <th>Título</th>
-            <th>Autor</th>
             <th>Ubicación</th>
             <!--<th>Palabras Clave</th>-->
             <th class="text-center"><?php if(isset($permissions)) { ?>Acción<?php } ?></th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach($this->docs->list($filters) as $r) { ?>
+        <?php foreach($this->inventory->list($filters) as $r) { ?>
         <tr>
             <td><?php echo $r->code; ?></td>
             <td><?php echo ($r->start <> '0000') ? $r->start . " - " . $r->end : '' ?></td>
             <td><?php echo $r->title; ?></td>
-            <td><?php echo $r->author; ?></td>
             <td><?php echo $r->location; ?></td>
             <!-- 
             <td><?php if (!empty($r->keywords)) { foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } } ?></td>
             -->
             <td class="text-right">
-                <a class="btn btn-primary text-white m-1" style="cursor:pointer" data-toggle="tooltip" data-placement="top" href="?c=Docs&a=Detail&id=<?php echo $r->id; ?>" target="_blank" data-status="view" data-title="Ver Documento" title="Ver"><i class="fas fa-eye"></i></a>
+                <a class="btn btn-primary text-white m-1" style="cursor:pointer" data-toggle="tooltip" data-placement="top" href="?c=Invetory&a=Detail&id=<?php echo $r->id; ?>" target="_blank" data-status="view" data-title="Ver Documento" title="Ver"><i class="fas fa-eye"></i></a>
                 <?php if(isset($permissions)) { ?>
                 <button type="button" class="btn btn-warning new m-1" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Editar"><i class="fas fa-edit"></i></button>
-                <button type="button" class="btn btn-danger delete m-1" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Delete"><i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-danger delete" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Delete"><i class="fas fa-trash"></i></button>
                 <?php } ?>
-            </td>
+            </td> 
+            
         </tr>
         <?php } ?>
     </tbody>
@@ -49,14 +48,14 @@ $(".delete").on("click", function(e) {
     }).then((result) => {
         if (result.isConfirmed) {
             $("#loading").show();
-            $.post("?c=Docs&a=Delete", { id }).done(function( res ) {
+            $.post("?c=Inventory&a=Delete", { id }).done(function( res ) {
                 location.reload();
             });
         }
     })
 });
 
-<?php if(!$this->docs->list($filters)) { ?>
+<?php if(!$this->inventory->list($filters)) { ?>
     Swal.fire({
         title: 'No se encontraron Registros',
         icon: 'error',

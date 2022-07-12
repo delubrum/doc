@@ -39,15 +39,6 @@
                 <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index" id="Filters_Form">
                     <div class="row">
 
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>Código:</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="code" value="<?php echo !empty($_POST) ? $_POST['code'] : '' ?>">
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Titulo:</label>
@@ -57,32 +48,20 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Autor:</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="author" value="<?php echo !empty($_POST) ? $_POST['author'] : '' ?>" minlength="3">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Ubicación:</label>
                                 <div class="input-group">
                                     <input class="form-control" name="location" value="<?php echo !empty($_POST) ? $_POST['location'] : '' ?>" minlength="3">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>Páginas:</label>
-                                <div class="input-group">
-                                    <input type="number" step="1" class="form-control" name="pages" value="<?php echo !empty($_POST) ? $_POST['pages'] : '' ?>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>* Idioma:</label>
-                                <div class="input-group">
-                                    <select class="form-control" name="lang" >
-                                        <option></option>
-                                        <option <?php echo (!empty($_POST) and $_POST['lang'] == 'Español') ? 'selected' : ''; ?>>Español</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -136,8 +115,6 @@ $(document).ready(function() {
         "scrollX" : true,
         "autoWidth": false,
         "columns": [
-            null,
-            null,
             null,
             null,
             null,
