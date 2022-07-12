@@ -27,7 +27,6 @@ class DocsController{
     (!empty($_REQUEST['lang'])) ? $filters .= " and lang ='" . $_REQUEST['lang']."'": $filters .= "";
     (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
     (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
-    
     if((!empty($_REQUEST['keywords']))) {
       $ids = '';
       foreach($_REQUEST['keywords'] as $p) {
