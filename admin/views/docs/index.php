@@ -13,7 +13,7 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
-                <h1 class="m-0 text-dark">Base de datos descripción documental</h1>
+                <h1 class="m-0 text-dark">Descripción Documental</h1>
             </div>
         </div>
     </div>
