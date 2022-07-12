@@ -27,9 +27,9 @@
 
     <table style='text-align:center;width:100%;padding:0' class="mb-4">
         <tr>
-            <td style='width:33%'><img style='width:100px' src='assets/img/logo.png'></td>
-            <td style='width:33%'><h3>ENCABEZADO</h></td>
-            <td style='width:33%'><img style='width:100px' src='assets/img/logo.png'></td>
+            <td style='width:33%'><img style='width:200px' src='assets/img/cultura.png'></td>
+            <td style='width:33%'><h3></h></td>
+            <td style='width:33%'><img style='width:100px' src='assets/img/cultura2.png'></td>
         </tr>
     </table>
 
@@ -208,4 +208,15 @@
 
 
 
+
 </div>
+
+
+<table style='text-align:center;width:90%;padding:30px 0; margin:0 5%' class="mt-4">
+<br>
+        <tr>
+            <td class="text-left" style='width:20%;font-size:12px'>Proyecto ejecutado con recursos del Programa de Planeación del Desarrollo Local y Presupuesto Participativo del corregimiento de San Antonio de Prado.</td>
+            <td style='width:47%'><h3></h></td>
+            <td class="text-right" style='width:33%'><img style='width:150px' src='assets/img/alcaldia.png'></td>
+        </tr>
+    </table>
