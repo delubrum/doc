@@ -109,7 +109,7 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Public" id="Filters_Form">
                     <div class="row">
 
                         <div class="col-sm-1">
