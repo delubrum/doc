@@ -13,8 +13,8 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
-                <h1 class="m-0 text-dark">Inventario Documental</h1>
-                </div>
+                <h1 class="m-0 text-dark">Centros de Documentación</h1>
+            </div>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
                 <h3 class="card-title">Filtros</h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -36,60 +36,36 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index" id="Filters_Form">
                     <div class="row">
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Titulo:</label>
+                                <label>Nombre:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="title" value="<?php echo !empty($_POST) ? $_POST['title'] : '' ?>" minlength="3">
+                                    <input class="form-control" name="name" value="<?php echo !empty($_POST) ? $_POST['name'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Autor:</label>
+                                <label>Dirección:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="author" value="<?php echo !empty($_POST) ? $_POST['author'] : '' ?>" minlength="3">
+                                    <input class="form-control" name="address" value="<?php echo !empty($_POST) ? $_POST['address'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-4">
                             <div class="form-group">
-                                <label>Ubicación:</label>
+                                <label>Teléfono:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="location" value="<?php echo !empty($_POST) ? $_POST['location'] : '' ?>" minlength="3">
+                                    <input class="form-control" name="phone" value="<?php echo !empty($_POST) ? $_POST['phone'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>Desde:</label>
-                                <input type="number" class="form-control date" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : '' ?>">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>Hasta:</label>
-                                <input type="number" class="form-control date" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : '' ?>">
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Palabras Clave:</label>
-                                <div class="input-group">
-                                    <select class="form-control select2_Indextags" style="width:100%" name="keywords[]" multiple="multiple">
-                                    <option></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                     <button type="submit" class="btn btn-primary float-right"><i class="fas fa-search"></i> Buscar</button>
@@ -116,9 +92,6 @@ $(document).ready(function() {
         "autoWidth": false,
         "columns": [
             null,
-            null,
-            null,
-            null,
             { "width": "12%" },
         ]
     });
@@ -131,7 +104,7 @@ $(document).ready(function() {
 
 $(".new").on("click", function() {
     id = $(this).data('id');
-    $.post( "?c=Inventory&a=New", { id }).done(function( data ) {
+    $.post( "?c=Centre&a=New", { id }).done(function( data ) {
         $('#xlModal').modal('toggle');
         $('#xlModal .modal-content').html(data);
     });

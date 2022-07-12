@@ -1,4 +1,4 @@
-<header>
+<head>
     <link rel="stylesheet" href="assets/css/adminlte.min.css">
     <link rel="icon" sizes="192x192" href="assets/img/logo.png">
     <title>Doc</title>
@@ -6,7 +6,7 @@
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/adminlte.min.js"></script>
     <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-</header>
+</head>
 
 <style>
 
@@ -145,7 +145,7 @@
             <div class="form-group">
                 <label>Palabras Clave:</label>
                 <div class="input-group">
-                <?php if (!empty($r->keywords)) { foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } } ?>
+                <?php if (!empty($id->keywords)) { foreach(json_decode($id->keywords) as $p) { echo $p . ", "; } } ?>
                 </div>
             </div>
         </div>

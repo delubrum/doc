@@ -72,7 +72,7 @@
           <li><a class="nav-link scrollto" href="../#contact">Contacto</a></li>
           <li class="dropdown" ><a class="active" href="#"><span>Bases de datos</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-            <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
+              <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
               <li><a href="?c=Inventory&a=Public">Inventario Documental</a></li>
               <li><a href="?c=Centre&a=Public">Centros de Documentación</a></li>
             </ul>
@@ -105,7 +105,7 @@
                 <h3 class="card-title"></h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Public">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Public">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Public" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Public" id="Filters_Form">
                     <div class="row">
 
                         <div class="col-sm-3">

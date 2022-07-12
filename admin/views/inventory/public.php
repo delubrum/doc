@@ -73,8 +73,8 @@
           <li class="dropdown" ><a class="active" href="#"><span>Bases de datos</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
-              <li><a href="#">Inventario Documental</a></li>
-              <li><a href="#">Centros de Documentación</a></li>
+              <li><a href="?c=Inventory&a=Public">Inventario Documental</a></li>
+              <li><a href="?c=Centre&a=Public">Centros de Documentación</a></li>
             </ul>
           </li>
         </ul>
@@ -90,7 +90,7 @@
     <div class="container-fluid">
         <div class="row m-2">
             <div class="col-sm-12">
-                <h1 class="m-0 text-dark">Descripción Documental</h1>
+                <h1 class="m-0 text-dark">Inventario Documental</h1>
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
                 <h3 class="card-title"></h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Public">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Inventory&a=Public">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -113,17 +113,8 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Public" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Inventory&a=Public" id="Filters_Form">
                     <div class="row">
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>Código:</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="code" value="<?php echo !empty($_POST) ? $_POST['code'] : '' ?>">
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="col-sm-3">
                             <div class="form-group">
@@ -134,33 +125,20 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>Autor:</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="author" value="<?php echo !empty($_POST) ? $_POST['author'] : '' ?>" minlength="3">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-sm-2">
                             <div class="form-group">
                                 <label>Ubicación:</label>
                                 <div class="input-group">
                                     <input class="form-control" name="location" value="<?php echo !empty($_POST) ? $_POST['location'] : '' ?>" minlength="3">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>Páginas:</label>
-                                <div class="input-group">
-                                    <input type="number" step="1" class="form-control" name="pages" value="<?php echo !empty($_POST) ? $_POST['pages'] : '' ?>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-1">
-                            <div class="form-group">
-                                <label>* Idioma:</label>
-                                <div class="input-group">
-                                    <select class="form-control" name="lang" >
-                                        <option></option>
-                                        <option <?php echo (!empty($_POST) and $_POST['lang'] == 'Español') ? 'selected' : ''; ?>>Español</option>
-                                        <option <?php echo (!empty($_POST) and $_POST['lang'] == 'Inglés') ? 'selected' : ''; ?>>Inglés</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
