@@ -20,7 +20,7 @@ class DocsController{
     $user = $this->users->UserGet($_SESSION["id-DOCS"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
     (!empty($_REQUEST)) ? $filters = '': $filters = '';
-    (!empty($_REQUEST['code'])) ? $filters .= " and code ='" . $_REQUEST['code']."'": $filters .= "";
+    (!empty($_REQUEST['code'])) ? $filters .= " and code LIKE '%" . $_REQUEST['code']."%'": $filters .= "";
     (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
     (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
     (!empty($_REQUEST['pages'])) ? $filters .= " and pages ='" . $_REQUEST['pages']."'": $filters .= "";
