@@ -124,7 +124,7 @@
                     <div class="form-group">
                         <label>* Centro de Documentación:</label>
                         <div class="input-group">
-                            <input class="form-control" name="centre" value="<?php echo isset($id) ? $id->docCenter : '' ?>">
+                            <input class="form-control" name="centre" value="<?php echo isset($id) ? $id->centre : '' ?>">
                         </div>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
                         <div class="input-group">
                             <select class="form-control" name="lang" required>
                                 <option></option>
-                                <option <?php echo (isset($id) and $id->type == 'Español') ? 'selected' : ''; ?>>Español</option>
+                                <option <?php echo (isset($id) and $id->lang == 'Español') ? 'selected' : ''; ?>>Español</option>
                             </select>
                         </div>
                     </div>
