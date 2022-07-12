@@ -22,6 +22,7 @@ class DocsController{
     (!empty($_REQUEST)) ? $filters = '': $filters = '';
     (!empty($_REQUEST['code'])) ? $filters .= " and code LIKE '%" . $_REQUEST['code']."%'": $filters .= "";
     (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
+    (!empty($_REQUEST['author'])) ? $filters .= " and author LIKE '%" . $_REQUEST['author']."%'": $filters .= "";
     (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
     (!empty($_REQUEST['pages'])) ? $filters .= " and pages ='" . $_REQUEST['pages']."'": $filters .= "";
     (!empty($_REQUEST['lang'])) ? $filters .= " and lang ='" . $_REQUEST['lang']."'": $filters .= "";
