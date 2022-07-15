@@ -1,6 +1,7 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
+            <td>Id</td>
             <th>Año</th>
             <th>Título</th>
             <th>Autor</th>
@@ -11,6 +12,7 @@
     <tbody>
         <?php foreach($this->inventory->list($filters) as $r) { ?>
         <tr>
+            <td><?php echo $r->id; ?></td>
             <td><?php echo ($r->year <> '0000') ? $r->year : '' ?></td>
             <td><?php echo $r->title; ?></td>
             <td><?php echo $r->author; ?></td>

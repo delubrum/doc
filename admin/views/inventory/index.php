@@ -157,4 +157,14 @@ $(document).on('submit', '#Filters_Form', function(e) {
     }
     $("#loading").show();
 });
+
+$(document).on('submit', '#Inventory_Form', function(e) {
+    e.preventDefault();
+    if (document.getElementById("Inventory_Form").checkValidity()) {
+        $("#loading").show();
+        $.post( "?c=Inventory&a=Save", $("#Inventory_Form").serialize()).done(function(res) {
+            location.reload();
+        });
+    }
+});
 </script>

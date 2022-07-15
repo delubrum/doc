@@ -1,4 +1,4 @@
-<form method="post" id="New_Form">
+<form method="post" id="Inventory_Form">
     <div class="modal-header">
         <h5 class="modal-title">Nuevo Documento</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -262,14 +262,4 @@ $('.select2_tags').select2({tags:true,<?php echo isset($id) ? "data: " . $id->ke
 <?php if(isset($id)) { ?>
 $('.select2_tags').val(<?php echo $id->keywords ?>).trigger('change')
 <?php } ?>
-
-$(document).on('submit', '#New_Form', function(e) {
-    e.preventDefault();
-    if (document.getElementById("New_Form").checkValidity()) {
-        $("#loading").show();
-        $.post( "?c=Inventory&a=Save", $("#New_Form").serialize()).done(function(res) {
-            location.reload();
-        });
-    }
-});
 </script>

@@ -4,12 +4,12 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once 'models/init.php';
 require_once 'models/users.php';
-require_once 'models/docs.php';
+require_once 'models/history.php';
 
-class DocsController{
+class HistoryController{
   private $model;
   public function __CONSTRUCT(){
-    $this->docs = new Docs();
+    $this->history = new History();
     $this->init = new Init();
     $this->users = new Users();
   }
@@ -20,25 +20,16 @@ class DocsController{
     $user = $this->users->UserGet($_SESSION["id-DOCS"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
     $filters = '';
-    (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
-    (!empty($_REQUEST['author'])) ? $filters .= " and author LIKE '%" . $_REQUEST['author']."%'": $filters .= "";
-    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
+    (!empty($_REQUEST['id'])) ? $filters .= " and id LIKE '%" . $_REQUEST['id']."%'": $filters .= "";
+    (!empty($_REQUEST['subject'])) ? $filters .= " and subject LIKE '%" . $_REQUEST['subject']."%'": $filters .= "";
+    (!empty($_REQUEST['doc'])) ? $filters .= " and doc LIKE '%" . $_REQUEST['doc']."%'": $filters .= "";
+    (!empty($_REQUEST['abstract'])) ? $filters .= " and abstract LIKE '%" . $_REQUEST['abstract']."%'": $filters .= "";
+    (!empty($_REQUEST['source'])) ? $filters .= " and source LIKE '%" . $_REQUEST['source']."%'": $filters .= "";
     (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
     (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
-    if((!empty($_REQUEST['keywords']))) {
-      $ids = '';
-      foreach($_REQUEST['keywords'] as $p) {
-        foreach($this->docs->list(" and keywords LIKE '%$p%' ") as $r) { 
-          $ids .= $r->id . ',';
-        }
-      }
-      $ids = rtrim($ids, ',');
-      ($ids != '') ? $filters .= " and id IN ($ids)" : $filters .= ' and id = 0';
-      
-    }
-    if (in_array(3, $permissions)) {
+    if (in_array(6, $permissions)) {
       require_once 'views/layout/header.php';
-      require_once 'views/docs/index.php';
+      require_once 'views/history/index.php';
     } else {
       $this->init->redirect();
     }
@@ -46,34 +37,25 @@ class DocsController{
 
   public function Public(){
     $filters = '';
-    (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
-    (!empty($_REQUEST['author'])) ? $filters .= " and author LIKE '%" . $_REQUEST['author']."%'": $filters .= "";
-    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
+    (!empty($_REQUEST['id'])) ? $filters .= " and id LIKE '%" . $_REQUEST['id']."%'": $filters .= "";
+    (!empty($_REQUEST['subject'])) ? $filters .= " and subject LIKE '%" . $_REQUEST['subject']."%'": $filters .= "";
+    (!empty($_REQUEST['doc'])) ? $filters .= " and doc LIKE '%" . $_REQUEST['doc']."%'": $filters .= "";
+    (!empty($_REQUEST['abstract'])) ? $filters .= " and abstract LIKE '%" . $_REQUEST['abstract']."%'": $filters .= "";
+    (!empty($_REQUEST['source'])) ? $filters .= " and source LIKE '%" . $_REQUEST['source']."%'": $filters .= "";
     (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
     (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
-    if((!empty($_REQUEST['keywords']))) {
-      $ids = '';
-      foreach($_REQUEST['keywords'] as $p) {
-        foreach($this->docs->list(" and keywords LIKE '%$p%' ") as $r) { 
-          $ids .= $r->id . ',';
-        }
-      }
-      $ids = rtrim($ids, ',');
-      ($ids != '') ? $filters .= " and id IN ($ids)" : $filters .= ' and id = 0';
-      
-    }
-      require_once 'views/docs/public.php';
+    require_once 'views/history/public.php';
   }
 
   public function New(){
-    isset($_REQUEST['id']) ? $id = $this->docs->get($_REQUEST['id']) : '';
-    require_once 'views/docs/new.php';
+    isset($_REQUEST['id']) ? $id = $this->history->get($_REQUEST['id']) : '';
+    require_once 'views/history/new.php';
   }
 
   public function Save(){
     require_once "middlewares/check.php";
     $item = new stdClass();
-    $table = 'docs';
+    $table = 'history';
     foreach($_POST as $k => $val) {
       if (!empty($val)) {
         if($k != 'id') {
@@ -91,17 +73,17 @@ class DocsController{
   }
 
   public function Detail(){
-    $id = $this->docs->get($_REQUEST['id']);
+    $id = $this->history->get($_REQUEST['id']);
     session_start();
     (!empty($_SESSION["id-DOCS"])) 
     ? $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true)
     : $permissions = array();
     session_write_close();
-    require_once 'views/docs/detail.php';
+    require_once 'views/history/detail.php';
   }
 
   public function Delete(){
-    $table = 'docs';
+    $table = 'history';
     $this->init->delete($table,$_REQUEST['id']);
   }
 

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Docs</title>
+  <title>PraDoc</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -32,7 +32,7 @@
     <script src="assets/plugins/select2/js/select2.full.min.js"></script>
     <link rel="stylesheet" href="assets/css/adminlte.min.css">
     <link rel="icon" sizes="192x192" href="assets/img/logo.png">
-    <title>Docs</title>
+    <title>PraDoc</title>
     <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/adminlte.min.js"></script>
     <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
@@ -59,7 +59,7 @@
   <header id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="../index.html">Docs<span>.</span></a></h1>
+      <h1 class="logo"><a href="../index.html">PraDoc<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
@@ -76,6 +76,7 @@
             <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
               <li><a href="?c=Inventory&a=Public">Inventario Documental</a></li>
               <li><a href="?c=Centre&a=Public">Centros de Documentación</a></li>
+              <li><a href="?c=History&a=Public">Rodrigo Atehortúa</a></li>
             </ul>
           </li>
         </ul>
@@ -91,7 +92,7 @@
     <div class="container-fluid">
         <div class="row m-2">
             <div class="col-sm-12">
-                <h1 class="m-0 text-dark">Centros de Documentación</h1>
+                <h1 class="m-0 text-dark">Descripción Documental</h1>
             </div>
         </div>
     </div>

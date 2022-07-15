@@ -96,7 +96,7 @@
     <div class="container-fluid">
         <div class="row m-2">
             <div class="col-sm-12">
-                <h1 class="m-0 text-dark">Inventario Documental</h1>
+                <h1 class="m-0 text-dark">BD Rodrigo Atehortúa</h1>
             </div>
         </div>
     </div>
@@ -111,7 +111,7 @@
                 <h3 class="card-title"></h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Inventory&a=Public">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=History&a=Public">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -119,7 +119,7 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Inventory&a=Public" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=History&a=Public" id="Filters_Form">
                     <div class="row">
 
                         <div class="col-sm-3">

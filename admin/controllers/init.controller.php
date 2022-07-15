@@ -12,11 +12,11 @@ class InitController{
   }
 
   public function Index(){
-    // require_once "middlewares/check.php";
-    // $user = $this->users->UserGet($_SESSION["id-DOCS"]);
-    // require_once 'views/layout/header.php';
-    // require_once 'views/layout/page.php';
-    header('Location: ?c=Docs&a=Index');
+    require_once "middlewares/check.php";
+    $user = $this->users->UserGet($_SESSION["id-DOCS"]);
+    require_once 'views/layout/header.php';
+    require_once 'views/layout/page.php';
+    //header('Location: ?c=Docs&a=Index');
   }
 
   public function SessionRefresh(){

@@ -1,6 +1,7 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
+            <th>id</th>
             <th>Código</th>
             <th>Fecha</th>
             <th>Título</th>
@@ -13,6 +14,7 @@
     <tbody>
         <?php foreach($this->docs->list($filters) as $r) { ?>
         <tr>
+            <td><?php echo $r->id; ?></td>
             <td><?php echo $r->code; ?></td>
             <td><?php echo ($r->start <> '0000') ? $r->start . " - " . $r->end : '' ?></td>
             <td><?php echo $r->title; ?></td>

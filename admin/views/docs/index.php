@@ -13,7 +13,7 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
-                <h1 class="m-0 text-dark">Centros de Documentación</h1>
+                <h1 class="m-0 text-dark">Descripción Documental</h1>
             </div>
         </div>
     </div>
@@ -157,5 +157,15 @@ $(document).on('submit', '#Filters_Form', function(e) {
         return true;
     }
     $("#loading").show();
+});
+
+$(document).on('submit', '#Docs_Form', function(e) {
+    e.preventDefault();
+    if (document.getElementById("Docs_Form").checkValidity()) {
+        $("#loading").show();
+        $.post( "?c=Docs&a=Save", $("#Docs_Form").serialize()).done(function(res) {
+            location.reload();
+        });
+    }
 });
 </script>

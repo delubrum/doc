@@ -13,8 +13,8 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
-                <h1 class="m-0 text-dark">Centros de Documentación</h1>
-            </div>
+                <h1 class="m-0 text-dark">BD Rodrigo Atehortúa</h1>
+                </div>
         </div>
     </div>
 </div>
@@ -28,7 +28,7 @@
                 <h3 class="card-title">Filtros</h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -36,36 +36,58 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Docs&a=Index" id="Filters_Form">
                     <div class="row">
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Nombre:</label>
+                                <label>Tema:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="name" value="<?php echo !empty($_POST) ? $_POST['name'] : '' ?>">
+                                    <input class="form-control" name="subject" value="<?php echo !empty($_POST) ? $_POST['subject'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Dirección:</label>
+                                <label>Documento:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="address" value="<?php echo !empty($_POST) ? $_POST['address'] : '' ?>">
+                                    <input class="form-control" name="doc" value="<?php echo !empty($_POST) ? $_POST['doc'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-2">
                             <div class="form-group">
-                                <label>Teléfono:</label>
+                                <label>Resumen:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="phone" value="<?php echo !empty($_POST) ? $_POST['phone'] : '' ?>">
+                                    <input class="form-control" name="abstract" value="<?php echo !empty($_POST) ? $_POST['abstract'] : '' ?>" minlength="3">
                                 </div>
                             </div>
                         </div>
 
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Fuente:</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="source" value="<?php echo !empty($_POST) ? $_POST['source'] : '' ?>" minlength="3">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Desde:</label>
+                                <input type="date" class="form-control date" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : '' ?>">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <label>Hasta:</label>
+                                <input type="date" class="form-control date" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : '' ?>">
+                            </div>
+                        </div>
 
                     </div>
                     <button type="submit" class="btn btn-primary float-right"><i class="fas fa-search"></i> Buscar</button>
@@ -92,6 +114,9 @@ $(document).ready(function() {
         "autoWidth": false,
         "columns": [
             null,
+            null,
+            null,
+            null,
             { "width": "12%" },
         ]
     });
@@ -104,7 +129,7 @@ $(document).ready(function() {
 
 $(".new").on("click", function() {
     id = $(this).data('id');
-    $.post( "?c=Centre&a=New", { id }).done(function( data ) {
+    $.post( "?c=History&a=New", { id }).done(function( data ) {
         $('#xlModal').modal('toggle');
         $('#xlModal .modal-content').html(data);
     });
@@ -131,11 +156,11 @@ $(document).on('submit', '#Filters_Form', function(e) {
     $("#loading").show();
 });
 
-$(document).on('submit', '#Centre_Form', function(e) {
+$(document).on('submit', '#History_Form', function(e) {
     e.preventDefault();
-    if (document.getElementById("Centre_Form").checkValidity()) {
+    if (document.getElementById("History_Form").checkValidity()) {
         $("#loading").show();
-        $.post( "?c=Centre&a=Save", $("#Centre_Form").serialize()).done(function(res) {
+        $.post( "?c=History&a=Save", $("#History_Form").serialize()).done(function(res) {
             location.reload();
         });
     }

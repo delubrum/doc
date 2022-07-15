@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" sizes="192x192" href="assets/img/logo.png">
-    <title>Docs</title>
+    <title>PraDoc</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -127,7 +127,7 @@
             <!-- Brand Logo -->
             <a href="?c=Init&a=Index" class="brand-link">
                 <img src="assets/img/logo.png" style="width:30px" class="brand-image elevation-3 img-circle">
-                <span class="brand-text font-weight-light pl-3">Docs</span>
+                <span class="brand-text font-weight-light pl-3">PraDoc</span>
             </a>
 
             <!-- Sidebar -->

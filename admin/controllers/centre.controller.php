@@ -20,9 +20,9 @@ class CentreController{
     $user = $this->users->UserGet($_SESSION["id-DOCS"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
     $filters = '';
-    (!empty($_REQUEST['name'])) ? $filters .= " and code LIKE '%" . $_REQUEST['name']."%'": $filters .= "";
-    (!empty($_REQUEST['address'])) ? $filters .= " and title LIKE '%" . $_REQUEST['address']."%'": $filters .= "";
-    (!empty($_REQUEST['phone'])) ? $filters .= " and title LIKE '%" . $_REQUEST['phone']."%'": $filters .= "";
+    (!empty($_REQUEST['name'])) ? $filters .= " and name LIKE '%" . $_REQUEST['name']."%'": $filters .= "";
+    (!empty($_REQUEST['address'])) ? $filters .= " and address LIKE '%" . $_REQUEST['address']."%'": $filters .= "";
+    (!empty($_REQUEST['phone'])) ? $filters .= " and phone LIKE '%" . $_REQUEST['phone']."%'": $filters .= "";
     if (in_array(5, $permissions)) {
       require_once 'views/layout/header.php';
       require_once 'views/centre/index.php';
@@ -32,22 +32,10 @@ class CentreController{
   }
 
   public function Public(){
-    (!empty($_REQUEST)) ? $filters = '': $filters = '  ORDER BY id DESC LIMIT 10';
-    (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
-    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
-    (!empty($_REQUEST['from'])) ? $filters .= " and date  >='" . $_REQUEST['from']."'": $filters .= "";
-    (!empty($_REQUEST['to'])) ? $filters .= " and date <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
-    if((!empty($_REQUEST['keywords']))) {
-      $ids = '';
-      foreach($_REQUEST['keywords'] as $p) {
-        foreach($this->centre->list(" and keywords LIKE '%$p%' ") as $r) { 
-          $ids .= $r->id . ',';
-        }
-      }
-      $ids = rtrim($ids, ',');
-      ($ids != '') ? $filters .= " and id IN ($ids)" : $filters .= ' and id = 0';
-      
-    }
+    $filters = '';
+    (!empty($_REQUEST['name'])) ? $filters .= " and name LIKE '%" . $_REQUEST['name']."%'": $filters .= "";
+    (!empty($_REQUEST['address'])) ? $filters .= " and address LIKE '%" . $_REQUEST['address']."%'": $filters .= "";
+    (!empty($_REQUEST['phone'])) ? $filters .= " and phone LIKE '%" . $_REQUEST['phone']."%'": $filters .= "";
       require_once 'views/centre/public.php';
   }
 

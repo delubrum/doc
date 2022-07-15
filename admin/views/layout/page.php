@@ -1,15 +1,30 @@
 <style>
-body {
-    background-image: url("assets/img/login-bg.jpg") !important;
-}
 
 #container {
-margin-left:40%;
-margin-top:25%;
-opacity:0.8;
+    text-align: center;
+    margin-top:16%;
+}
+
+#container img{
+    display:inline-block;
+    margin: 70px;
+    
+}
+
+@media screen and (max-width:1023px) {
+    #container {
+margin-top:0%;
+
+}  
+}
+
+#container img{
+    margin: 50px;  
 }
 </style>
 
 <div id="container">
-    <h1>WELCOME TO SIGMA</h1>
+<img src="assets/img/cultura.png" style="width:250px">
+<img src="assets/img/alcaldia.png" style="width:250px">
+<img src="assets/img/cultura2.png" style="width:130px">
 </div>
