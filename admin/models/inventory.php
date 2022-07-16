@@ -18,6 +18,7 @@ class Inventory {
             FROM inventory
             WHERE 1=1
             $filters
+            ORDER BY title ASC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);

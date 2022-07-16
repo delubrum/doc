@@ -18,6 +18,7 @@ class History {
             FROM history
             WHERE 1=1
             $filters
+            ORDER BY source ASC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);

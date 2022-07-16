@@ -22,7 +22,6 @@ class DocsController{
     $filters = '';
     (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
     (!empty($_REQUEST['author'])) ? $filters .= " and author LIKE '%" . $_REQUEST['author']."%'": $filters .= "";
-    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
     (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
     (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
     if((!empty($_REQUEST['keywords']))) {
@@ -48,7 +47,6 @@ class DocsController{
     $filters = '';
     (!empty($_REQUEST['title'])) ? $filters .= " and title LIKE '%" . $_REQUEST['title']."%'": $filters .= "";
     (!empty($_REQUEST['author'])) ? $filters .= " and author LIKE '%" . $_REQUEST['author']."%'": $filters .= "";
-    (!empty($_REQUEST['location'])) ? $filters .= " and location ='" . $_REQUEST['location']."'": $filters .= "";
     (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
     (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
     if((!empty($_REQUEST['keywords']))) {

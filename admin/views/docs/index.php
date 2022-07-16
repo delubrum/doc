@@ -57,23 +57,14 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
-                            <div class="form-group">
-                                <label>Ubicación:</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="location" value="<?php echo !empty($_POST) ? $_POST['location'] : '' ?>" minlength="3">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Desde:</label>
                                 <input type="number" class="form-control date" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : '' ?>">
                             </div>
                         </div>
 
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <label>Hasta:</label>
                                 <input type="number" class="form-control date" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : '' ?>">
@@ -106,6 +97,14 @@
 </div>
 </div>
 
+<table style='text-align:center;width:100%;padding:0' class="mb-4">
+    <tr>
+        <td style='width:33%'><img style='width:200px' src='assets/img/cultura.png'></td>
+        <td style='width:33%'><h3></h></td>
+        <td style='width:33%'><img style='width:100px' src='assets/img/cultura2.png'></td>
+    </tr>
+</table>
+
 <script>
 $(document).ready(function() {
     var table = $('#example').DataTable({
@@ -115,8 +114,6 @@ $(document).ready(function() {
         "scrollX" : true,
         "autoWidth": false,
         "columns": [
-            null,
-            null,
             null,
             null,
             null,

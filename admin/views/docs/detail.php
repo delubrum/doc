@@ -41,13 +41,21 @@
         <h3 class="card-title">Área de Identificación</h3>
     </div>
     <div class="card-body row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
                 <label>Título:</label>
                 <div class="input-group">
                     <?php echo $id->title ?>
                 </div>
         </div>
-        <div class="col-sm-6">
+
+        <div class="col-sm-4">
+                <label>Autor:</label>
+                <div class="input-group">
+                    <?php echo $id->author ?>
+                </div>
+        </div>
+
+        <div class="col-sm-4">
                 <label>Tipo:</label>
                 <div class="input-group">
                     <?php echo $id->type ?>

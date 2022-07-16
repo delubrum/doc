@@ -20,13 +20,9 @@ class HistoryController{
     $user = $this->users->UserGet($_SESSION["id-DOCS"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
     $filters = '';
-    (!empty($_REQUEST['id'])) ? $filters .= " and id LIKE '%" . $_REQUEST['id']."%'": $filters .= "";
     (!empty($_REQUEST['subject'])) ? $filters .= " and subject LIKE '%" . $_REQUEST['subject']."%'": $filters .= "";
-    (!empty($_REQUEST['doc'])) ? $filters .= " and doc LIKE '%" . $_REQUEST['doc']."%'": $filters .= "";
     (!empty($_REQUEST['abstract'])) ? $filters .= " and abstract LIKE '%" . $_REQUEST['abstract']."%'": $filters .= "";
     (!empty($_REQUEST['source'])) ? $filters .= " and source LIKE '%" . $_REQUEST['source']."%'": $filters .= "";
-    (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
-    (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
     if (in_array(6, $permissions)) {
       require_once 'views/layout/header.php';
       require_once 'views/history/index.php';
@@ -37,13 +33,9 @@ class HistoryController{
 
   public function Public(){
     $filters = '';
-    (!empty($_REQUEST['id'])) ? $filters .= " and id LIKE '%" . $_REQUEST['id']."%'": $filters .= "";
     (!empty($_REQUEST['subject'])) ? $filters .= " and subject LIKE '%" . $_REQUEST['subject']."%'": $filters .= "";
-    (!empty($_REQUEST['doc'])) ? $filters .= " and doc LIKE '%" . $_REQUEST['doc']."%'": $filters .= "";
     (!empty($_REQUEST['abstract'])) ? $filters .= " and abstract LIKE '%" . $_REQUEST['abstract']."%'": $filters .= "";
     (!empty($_REQUEST['source'])) ? $filters .= " and source LIKE '%" . $_REQUEST['source']."%'": $filters .= "";
-    (!empty($_REQUEST['from'])) ? $filters .= " and start  >='" . $_REQUEST['from']."'": $filters .= "";
-    (!empty($_REQUEST['to'])) ? $filters .= " and end <='" . $_REQUEST['to']." 23:59:59'": $filters .= "";
     require_once 'views/history/public.php';
   }
 

@@ -1,7 +1,6 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
-            <th>Id</th>
             <th>Nombre</th>
             <th>Dirección</th>
             <th>Teléfono</th>
@@ -11,7 +10,6 @@
     <tbody>
         <?php foreach($this->centre->list($filters) as $r) { ?>
         <tr>
-            <td><?php echo $r->id; ?></td>
             <td><?php echo $r->name; ?></td>
             <td><?php echo $r->address; ?></td>
             <td><?php echo $r->phone; ?></td>

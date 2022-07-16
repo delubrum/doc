@@ -18,6 +18,7 @@ class Centre {
             FROM centre
             WHERE 1=1
             $filters
+            ORDER BY name ASC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);

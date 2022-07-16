@@ -1,11 +1,7 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Fecha</th>
             <th>Tema</th>
-            <th>Subtema</th>
-            <th>Documento</th>
             <th>Resumen</th>
             <th>Fuente</th>
             <th class="text-center"><?php if(isset($permissions)) { ?>Acción<?php } ?></th>
@@ -14,11 +10,7 @@
     <tbody>
         <?php foreach($this->history->list($filters) as $r) { ?>
         <tr>
-            <td><?php echo $r->id ?></td>
-            <td><?php echo $r->date ?></td>
             <td><?php echo $r->subject; ?></td>
-            <td><?php echo $r->subject2; ?></td>
-            <td><?php echo $r->doc; ?></td>
             <td><?php echo $r->abstract; ?></td>
             <td><?php echo $r->source; ?></td>
             <td class="text-right">

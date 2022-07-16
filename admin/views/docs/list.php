@@ -1,12 +1,9 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
-            <th>id</th>
-            <th>Código</th>
-            <th>Fecha</th>
             <th>Título</th>
             <th>Autor</th>
-            <th>Ubicación</th>
+            <th>Fecha</th>
             <!--<th>Palabras Clave</th>-->
             <th class="text-center"><?php if(isset($permissions)) { ?>Acción<?php } ?></th>
         </tr>
@@ -14,13 +11,9 @@
     <tbody>
         <?php foreach($this->docs->list($filters) as $r) { ?>
         <tr>
-            <td><?php echo $r->id; ?></td>
-            <td><?php echo $r->code; ?></td>
-            <td><?php echo ($r->start <> '0000') ? $r->start . " - " . $r->end : '' ?></td>
             <td><?php echo $r->title; ?></td>
             <td><?php echo $r->author; ?></td>
-            <td><?php echo $r->location; ?></td>
-            <!-- 
+            <td><?php echo ($r->start <> '0000') ? $r->start . " - " . $r->end : '' ?></td>            <!-- 
             <td><?php if (!empty($r->keywords)) { foreach(json_decode($r->keywords) as $p) { echo $p . ", "; } } ?></td>
             -->
             <td class="text-right">

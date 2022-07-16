@@ -92,6 +92,8 @@ $(document).ready(function() {
         "autoWidth": false,
         "columns": [
             null,
+            null,
+            null,
             { "width": "12%" },
         ]
     });

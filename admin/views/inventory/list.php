@@ -1,9 +1,8 @@
 <table id="example" class="display table-striped">
     <thead>
         <tr>
-            <td>Id</td>
-            <th>Año</th>
             <th>Título</th>
+            <th>Año</th>
             <th>Autor</th>
             <th>Ubicación</th>
             <th class="text-center"><?php if(isset($permissions)) { ?>Acción<?php } ?></th>
@@ -12,9 +11,8 @@
     <tbody>
         <?php foreach($this->inventory->list($filters) as $r) { ?>
         <tr>
-            <td><?php echo $r->id; ?></td>
-            <td><?php echo ($r->year <> '0000') ? $r->year : '' ?></td>
             <td><?php echo $r->title; ?></td>
+            <td><?php echo ($r->year <> '0000') ? $r->year : '' ?></td>
             <td><?php echo $r->author; ?></td>
             <td><?php echo $r->location; ?></td>
             <td class="text-right">
