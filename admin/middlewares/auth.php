@@ -16,7 +16,7 @@ if (!empty($_SESSION["id-DOCS"])) {
   $isLoggedIn = true;
 }
 // Check if loggedin session exists
-else if (! empty($_COOKIE["user_login"]) && ! empty($_COOKIE["random_password"]) && ! empty($_COOKIE["random_selector"])) {
+else if (!empty($_COOKIE["user_login"]) && !empty($_COOKIE["random_password"]) && !empty($_COOKIE["random_selector"])) {
   // Initiate auth token verification diirective to false
   $isPasswordVerified = false;
   $isSelectorVerified = false;
