@@ -75,8 +75,8 @@
           -->
           <li class="dropdown" ><a class="active" href="#"><span>Bases de datos</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
+                <li><a href="?c=Inventory&a=Public">Inventario Documental</a></li>
               <li><a href="?c=Docs&a=Public">Descripción Documental</a></li>
-              <li><a href="?c=Inventory&a=Public">Inventario Documental</a></li>
               <li><a href="?c=Centre&a=Public">Centros de Documentación</a></li>
               <li><a href="?c=History&a=Public">Rodrigo Atehortúa</a></li>
             </ul>
