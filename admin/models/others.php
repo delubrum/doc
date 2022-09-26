@@ -1,6 +1,6 @@
 <?php
 
-class Inventory {
+class Others {
     private $pdo;
     public function __CONSTRUCT() {
         try {
@@ -12,18 +12,15 @@ class Inventory {
         }
     }
 
-    public function list($filters = '') {
+    public function list($filters = '', $type) {
         try {
-            $stm = $this->pdo->prepare("SELECT *
-            FROM inventory a
-            LEFT JOIN products b
-            ON a.productId = b.id
-            LEFT JOIN products_categories c
-            ON b.categoryId = c.id
-            ORDER BY c.id,b.description ASC
-            WHERE 1=1
+            $stm = $this->pdo->prepare("SELECT a.*, b.username
+            FROM others a
+            LEFT JOIN users b
+            ON a.userId = b.id
+            WHERE type = '$type'
             $filters
-            ORDER BY c.id,b.description ASC
+            ORDER BY a.id DESC
             ");
             $stm->execute();
             return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -33,11 +30,13 @@ class Inventory {
         }
     }
 
-    public function get($id) {
+    public function get($item) {
         try {
-            $stm = $this->pdo->prepare("SELECT * 
-            FROM inventory 
-            WHERE productId = $id");
+            $stm = $this->pdo->prepare("SELECT sum(price) as total 
+            FROM others 
+            WHERE created_at >= '$item->initial'
+            AND created_at <= '$item->final'
+            AND type = $item->type");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
         }

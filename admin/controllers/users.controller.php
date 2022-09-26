@@ -15,8 +15,8 @@ class UsersController{
 
   public function Index(){
     require_once "middlewares/check.php";
-    $user = $this->users->UserGet($_SESSION["id-DOCS"]);
-    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
+    $user = $this->users->UserGet($_SESSION["id-CRB"]);
+    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
     if (in_array(1, $permissions)) {
       require_once 'views/layout/header.php';
       require_once 'views/users/index.php';
@@ -27,8 +27,8 @@ class UsersController{
 
   public function Profile(){
     require_once "middlewares/check.php";
-    $user = $this->users->UserGet($_SESSION["id-DOCS"]);
-    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
+    $user = $this->users->UserGet($_SESSION["id-CRB"]);
+    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
     $a = 'Profile';
     $b = 'User';
     require_once 'views/layout/header.php';
@@ -44,7 +44,7 @@ class UsersController{
   public function UserEdit(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_REQUEST['id']);
-    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-DOCS"])->permissions, true);
+    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
     $a = 'Profile';
     $b = 'Edit';
     require_once 'views/users/profile.php';
@@ -57,7 +57,7 @@ class UsersController{
   public function UserSave(){
     // $dotenv = Dotenv\Dotenv::createUnsafeImmutable('/var/www/html/sigma/'); $dotenv->load();
     require_once "middlewares/check.php";
-    $user = $this->users->UserGet($_SESSION["id-DOCS"]);
+    $user = $this->users->UserGet($_SESSION["id-CRB"]);
     $item = new stdClass();
     $item->name=$_REQUEST['name'];
     $item->email=$_REQUEST['email'];
@@ -78,7 +78,7 @@ class UsersController{
         $this->users->userUpdate($item);
         echo $item->userId;
         if ($item->userId == $user->id) {
-          $_SESSION["id-DOCS"] = "";
+          $_SESSION["id-CRB"] = "";
           session_destroy();
           $this->util->clearAuthCookie();        }
       } else {

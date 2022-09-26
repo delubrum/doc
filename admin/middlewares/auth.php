@@ -12,7 +12,7 @@ $current_date = date("Y-m-d H:i:s", $current_time);
 $cookie_expiration_time = $current_time + (30 * 24 * 60 * 60);  // for 1 month
 $isLoggedIn = false;
 // Check if loggedin session and redirect if session exists
-if (!empty($_SESSION["id-DOCS"])) {
+if (!empty($_SESSION["id-SIGMA"])) {
   $isLoggedIn = true;
 }
 // Check if loggedin session exists
@@ -23,35 +23,38 @@ else if (!empty($_COOKIE["user_login"]) && !empty($_COOKIE["random_password"]) &
   $isExpiryDateVerified = false;
   // Get token for username
   $userToken = $auth->getTokenByEmail($_COOKIE["user_login"],0);
-  // Validate random password cookie with database
-  if (password_verify($_COOKIE["random_password"], $userToken->password_hash)) {
-    $isPasswordVerified = true;
-  }
-  // Validate random selector cookie with database
-  if (password_verify($_COOKIE["random_selector"], $userToken->selector_hash)) {
-    $isSelectorVerified = true;
-  }
-  // check cookie expiration by date
-  if($userToken->expiry_date >= $current_date) {
-    $isExpiryDateVerified = true;
-  }      
-  // Redirect if all cookie based validation retuens true
-  // Else, mark the token as expired and clear cookies
-  if (!empty($userToken->id) && $isPasswordVerified && $isSelectorVerified && $isExpiryDateVerified) {
-    $isLoggedIn = true;
-    $user = $auth->getUserByEmail($userToken->email);
-    session_start();
-    $_SESSION["id-DOCS"] = $user->id;
-    session_write_close();
-    $load_lang = $user->lang;
-    $lang_json = file_get_contents("assets/lang/".$load_lang.".json");
-    $lang = json_decode($lang_json, true);
-  } else {
-    if(!empty($userToken->id)) {
-      $auth->markAsExpired($userToken->id);
+
+  if(!empty($userToken)) {
+    // Validate random password cookie with database
+    if (password_verify($_COOKIE["random_password"], $userToken->password_hash)) {
+      $isPasswordVerified = true;
     }
-    // clear cookies
-    $util->clearAuthCookie();
+    // Validate random selector cookie with database
+    if (password_verify($_COOKIE["random_selector"], $userToken->selector_hash)) {
+      $isSelectorVerified = true;
+    }
+    // check cookie expiration by date
+    if($userToken->expiry_date >= $current_date) {
+      $isExpiryDateVerified = true;
+    }      
+    // Redirect if all cookie based validation retuens true
+    // Else, mark the token as expired and clear cookies
+    if (!empty($userToken->id) && $isPasswordVerified && $isSelectorVerified && $isExpiryDateVerified) {
+      $isLoggedIn = true;
+      $user = $auth->getUserByEmail($userToken->email);
+      session_start();
+      $_SESSION["id-SIGMA"] = $user->id;
+      session_write_close();
+      $load_lang = $user->lang;
+      $lang_json = file_get_contents("assets/lang/".$load_lang.".json");
+      $lang = json_decode($lang_json, true);
+    } else {
+      if(!empty($userToken->id)) {
+        $auth->markAsExpired($userToken->id);
+      }
+      // clear cookies
+      $util->clearAuthCookie();
+    }
   }
 }
 

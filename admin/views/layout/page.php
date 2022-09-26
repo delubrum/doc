@@ -24,7 +24,5 @@ margin-top:0%;
 </style>
 
 <div id="container">
-<img src="assets/img/cultura.png" style="width:250px">
-<img src="assets/img/alcaldia.png" style="width:250px">
-<img src="assets/img/cultura2.png" style="width:130px">
+<img src="middlewares/barcode.php?text='0000001'&size=50&codetype=Code39&print=true"/>
 </div>

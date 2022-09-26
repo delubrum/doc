@@ -13,7 +13,7 @@ class InitController{
 
   public function Index(){
     require_once "middlewares/check.php";
-    $user = $this->users->UserGet($_SESSION["id-DOCS"]);
+    $user = $this->users->UserGet($_SESSION["id-CRB"]);
     require_once 'views/layout/header.php';
     require_once 'views/layout/page.php';
     //header('Location: ?c=Docs&a=Index');
@@ -21,8 +21,8 @@ class InitController{
 
   public function SessionRefresh(){
     session_start();
-    if (isset($_SESSION['id-DOCS'])) {
-      $_SESSION['id-DOCS'] = $_SESSION['id-DOCS'];
+    if (isset($_SESSION['id-CRB'])) {
+      $_SESSION['id-CRB'] = $_SESSION['id-CRB'];
     }
   }
 
