@@ -32,7 +32,7 @@ class Sales {
 
     public function listDetail($id) {
         try {
-            $stm = $this->pdo->prepare("SELECT *
+            $stm = $this->pdo->prepare("SELECT a.*, b.description
             FROM sales_detail a
             LEFT JOIN products b
             ON a.productId = b.id
@@ -77,14 +77,15 @@ class Sales {
         }
     }
 
-    public function get($initial,$final,$type){
+    public function get($initial,$final){
         try {
-            $stm = $this->pdo->prepare("SELECT sum(price) as total
+            $stm = $this->pdo->prepare("SELECT sum(cash) as total
             FROM sales 
             WHERE createdAt >= ?
             AND createdAt <= ? 
-            AND type = ?");
-            $stm->execute(array($initial,$final,$type));
+            AND cancelledAt is null
+            ");
+            $stm->execute(array($initial,$final));
             return $stm->fetch(PDO::FETCH_OBJ);
         }
             catch (Exception $e) {

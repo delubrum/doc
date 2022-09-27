@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->sales->list($filters) as $r) { 
+        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->sales->list($filters . "and cancelledAt is null") as $r) { 
             $suma += $r->cash;
         }
         echo $suma;

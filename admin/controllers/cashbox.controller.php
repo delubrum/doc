@@ -57,8 +57,7 @@ class CashboxController{
     $final=$this->cashbox->get($final_id)->amount;
     $start=$this->cashbox->get($initial_id)->createdAt;
     $end=$this->cashbox->get($final_id)->createdAt;
-    $cash=$this->sales->get($start,$end,'$')->total;
-    $qr=$this->sales->get($start,$end,'QR')->total;
+    $cash=$this->sales->get($start,$end)->total;
     $others_income=$this->others->get($start,$end,'IN')->total;
     $others_outcome=$this->others->get($start,$end,'OUT')->total;
     $diference = $final - ($cash+$others_income+$initial-$others_outcome);
@@ -74,7 +73,6 @@ class CashboxController{
     <br><b>Caja Inicio:</b> $" . number_format($initial, 0, '.', ',') . 
     "<br><b>Efectivo:</b> $" . number_format($cash, 0, '.', ',') .
     "<br><b>Otros Ingresos: $</b>" . number_format($others_income, 0, '.', ',') . 
-    "<br><b>QR:</b> $" . number_format($qr, 0, '.', ',') .
     "<br><b>Efectivo + Otros: $</b>" . number_format(($cash+$others_income), 0, '.', ',').
     "<br><b>Egresos</b>: $" . number_format($others_outcome, 0, '.', ',') .
     "<br><br><b>TOTAL CAJA: $" . number_format(($cash+$others_income+$initial-$others_outcome), 0, '.', ',') .
