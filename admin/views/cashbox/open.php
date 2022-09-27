@@ -24,14 +24,18 @@
     <!-- overlayScrollbars -->
     <script src="assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <script src="assets/plugins/inputmask/jquery.inputmask.min.js"></script>
-
+<style>
+    body {
+        background:white !important;
+    }
+</style>
 </head>
 
 <body>
     <div class="content">
         <div class="container-fluid">
             <center>
-                <img src="assets/img/logo.jpg" class="mt-5 pt-5">
+                <img src="assets/img/logo.jpg" class="mt-5 pt-5" style="width:300px">
                 <br>
                 <div class="login">
                     <br>
