@@ -31,7 +31,7 @@
     <div class="content">
         <div class="container-fluid">
             <center>
-                <img src="assets/img/logo.png" class="mt-5 pt-5">
+                <img src="assets/img/logo.jpg" class="mt-5 pt-5">
                 <br>
                 <div class="login">
                     <br>
