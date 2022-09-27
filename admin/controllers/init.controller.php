@@ -2,21 +2,31 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 require_once 'models/init.php';
+require_once 'models/cashbox.php';
 require_once 'models/users.php';
 
 class InitController{
   private $model;
   public function __CONSTRUCT(){
     $this->init = new Init();
+    $this->cashbox = new CashBox();
     $this->users = new Users();
   }
 
   public function Index(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-CRB"]);
-    require_once 'views/layout/header.php';
-    require_once 'views/layout/page.php';
-    //header('Location: ?c=Docs&a=Index');
+    if (!empty($this->cashbox->last()->type)) {
+      $type=$this->cashbox->last()->type;
+      if ($type==1) {
+        require_once 'views/layout/header.php';
+        require_once 'views/layout/page.php';
+      } else {
+        require_once 'views/cashbox/open.php';
+      }
+    } else {
+      require_once 'views/cashbox/open.php';
+    }
   }
 
   public function SessionRefresh(){

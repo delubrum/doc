@@ -28,7 +28,7 @@
                 <h3 class="card-title">Filtros</h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Purchases&a=Index">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Sales&a=Index">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Purchases&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Sales&a=Index" id="Filters_Form">
                     <div class="row">
 
                     <div class="col-sm-6">
@@ -65,7 +65,7 @@
         </div>
 
         <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->sales->list($filters) as $r) { 
-            $suma += $r->price;
+            $suma += $r->cash;
         }
         echo $suma;
         ?></span></h3>   
@@ -83,13 +83,19 @@
 </div>
 
 <script>
-
-$(".new").on("click", function() {
+$(document).on('click', '.new', function(e) {
+    e.stopImmediatePropagation();
     id = $(this).data('id');
     $.post( "?c=Sales&a=New", { id }).done(function( data ) {
         $('#xlModal').modal('toggle');
         $('#xlModal .modal-content').html(data);
     });
+});
+
+$(document).on('click', '.refund', function(e) {
+    e.stopImmediatePropagation();
+    id = $(this).data('id');
+    $('#refund #saleId').val(id);
 });
 
 $(document).ready(function() {
@@ -128,6 +134,16 @@ $(document).on('submit', '#Sales_Form', function(e) {
     if (document.getElementById("Sales_Form").checkValidity()) {
         $("#loading").show();
         $.post( "?c=Sales&a=Save", $("#Sales_Form").serialize()).done(function(res) {
+            location.reload();
+        });
+    }
+});
+
+$(document).on('submit', '#Refund_Form', function(e) {
+    e.preventDefault();
+    if (document.getElementById("Refund_Form").checkValidity()) {
+        $("#loading").show();
+        $.post( "?c=Sales&a=Refund", $("#Refund_Form").serialize()).done(function(res) {
             location.reload();
         });
     }

@@ -46,7 +46,7 @@ class Products {
         }
     }
 
-    public function productsByCategory($id) {
+    public function getByCategory($id) {
         try {
         $stm = $this->pdo->prepare("SELECT *, b.qty as iqty
         FROM products a
@@ -55,6 +55,22 @@ class Products {
         WHERE categoryId = $id
         ORDER BY id ASC");
         $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_OBJ);
+        }
+        catch (Exception $e) {
+        die($e->getMessage());
+        }
+    }
+
+    public function search($description) {
+        try {
+        $stm = $this->pdo->prepare("SELECT *, b.qty as iqty
+        FROM products a
+        LEFT JOIN inventory b
+        ON a.id = b.productId
+        WHERE description like ? 
+        ORDER BY id ASC");
+        $stm->execute(array("%$description%"));
         return $stm->fetchAll(PDO::FETCH_OBJ);
         }
         catch (Exception $e) {

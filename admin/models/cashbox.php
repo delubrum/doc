@@ -1,6 +1,6 @@
 <?php
 
-class Inventory {
+class CashBox {
     private $pdo;
     public function __CONSTRUCT() {
         try {
@@ -12,20 +12,16 @@ class Inventory {
         }
     }
 
-    public function list($filters = '') {
+    public function last($filters = '') {
         try {
-            $stm = $this->pdo->prepare("SELECT *
-            FROM inventory a
-            LEFT JOIN products b
-            ON a.productId = b.id
-            LEFT JOIN products_categories c
-            ON b.categoryId = c.id
+            $stm = $this->pdo->prepare("SELECT * 
+            FROM cashbox
             WHERE 1=1
             $filters
-            ORDER BY c.id,b.description ASC
-            ");
+            ORDER BY id DESC 
+            LIMIT 1 ");
             $stm->execute();
-            return $stm->fetchAll(PDO::FETCH_OBJ);
+            return $stm->fetch(PDO::FETCH_OBJ);
         }
             catch (Exception $e) {
             die($e->getMessage());
@@ -35,8 +31,8 @@ class Inventory {
     public function get($id) {
         try {
             $stm = $this->pdo->prepare("SELECT * 
-            FROM inventory 
-            WHERE productId = $id");
+            FROM cashbox 
+            WHERE id = $id");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
         }

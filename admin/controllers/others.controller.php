@@ -16,7 +16,7 @@ class OthersController{
   }
 
 
-  public function In(){
+  public function IN(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-CRB"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
@@ -35,7 +35,7 @@ class OthersController{
     }
   }
 
-  public function Out(){
+  public function OUT(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-CRB"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);

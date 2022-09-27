@@ -28,7 +28,7 @@
                 <h3 class="card-title">Filtros</h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Purchases&a=Index">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Others&a=<?php echo $type ?>">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Purchases&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Others&a=<?php echo $type ?>" id="Filters_Form">
                     <div class="row">
 
                     <div class="col-sm-6">

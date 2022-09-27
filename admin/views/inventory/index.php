@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($this->model->InventoryList() as $r) { ?>
+                    <?php foreach($this->inventory->list() as $r) { ?>
                     <tr>
                         <td><?php echo $r->description ?></td>
                         <td><?php echo $r->name ?></td>

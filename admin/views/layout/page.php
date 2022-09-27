@@ -1,8 +1,12 @@
 <style>
-
+body {
+    background:white !important;
+}
 #container {
     text-align: center;
     margin-top:16%;
+    background:white !important;
+
 }
 
 #container img{
@@ -15,6 +19,7 @@
     #container {
 margin-top:0%;
 
+
 }  
 }
 
@@ -24,5 +29,5 @@ margin-top:0%;
 </style>
 
 <div id="container">
-<img src="middlewares/barcode.php?text='0000001'&size=50&codetype=Code39&print=true"/>
+<img src="assets/img/logo.jpg" style="width:300px" >
 </div>

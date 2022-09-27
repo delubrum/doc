@@ -3,7 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <link rel="icon" sizes="192x192" href="assets/img/logo.png">
-    <title>Olmo</title>
+    <title>Curuba</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
@@ -31,11 +31,11 @@
     <div class="content">
         <div class="container-fluid">
             <center>
-                <img src="assets/img/logo.jpg" class="mt-5 pt-5">
+                <img src="assets/img/logo.png" class="mt-5 pt-5">
                 <br>
                 <div class="login">
                     <br>
-                    <form method="post" action="?c=Init&a=CashboxOpen" class="p-3">
+                    <form method="post" id="Open_Form" class="p-3">
 
                         <div class="row">
                             <div class="col-sm-6 offset-md-3">
@@ -47,8 +47,8 @@
                                                     class="nav-icon fas fa-archive"></i></span>
                                         </div>
                                         <input id="amount"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 0, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
-                                            class="form-control" name="amount" placeholder="$ 0" required>
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': ' ', 'placeholder': '0'"
+                                            class="form-control" name="amount" placeholder="0" required>
                                     </div>
                                 </div>
                             </div>
@@ -65,5 +65,15 @@
 <script>
 $(document).ready(function() {
     $(":input").inputmask();
+});
+
+$(document).on('submit', '#Open_Form', function(e) {
+    e.preventDefault();
+    if (document.getElementById("Open_Form").checkValidity()) {
+        $("#loading").show();
+        $.post( "?c=Cashbox&a=Open", $("#Open_Form").serialize()).done(function(res) {
+            location.reload();
+        });
+    }
 });
 </script>

@@ -13,7 +13,7 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
-                <h1 class="m-0 text-dark">Centros de Documentación</h1>
+                <h1 class="m-0 text-dark">Tickets</h1>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
                 <h3 class="card-title">Filtros</h3>
                 <div class="card-tools">
 
-                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index">
+                    <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Tickets&a=Index">
                         <button type="submit" class="btn btn-danger float-right"><i class="fas fa-eraser"></i></button>
                     </form>
           
@@ -36,32 +36,23 @@
                 </div>
             </div>
             <div class="card-body" style="display: block;">
-                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Centre&a=Index" id="Filters_Form">
+                <form method="post" autocomplete="off" enctype="multipart/form-data" action="?c=Tickets&a=Index" id="Filters_Form">
                     <div class="row">
 
-                        <div class="col-sm-4">
+                    <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Nombre:</label>
+                                <label>Desde:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="name" value="<?php echo !empty($_POST) ? $_POST['name'] : '' ?>">
+                                    <input type="date" class="form-control" name="from" value="<?php echo !empty($_POST) ? $_POST['from'] : $firstday ?>">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group">
-                                <label>Dirección:</label>
+                                <label>Hasta:</label>
                                 <div class="input-group">
-                                    <input class="form-control" name="address" value="<?php echo !empty($_POST) ? $_POST['address'] : '' ?>">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Teléfono:</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="phone" value="<?php echo !empty($_POST) ? $_POST['phone'] : '' ?>">
+                                    <input type="date" class="form-control" name="to" value="<?php echo !empty($_POST) ? $_POST['to'] : $lastday ?>">
                                 </div>
                             </div>
                         </div>
@@ -72,6 +63,15 @@
                 </form>
             </div>
         </div>
+
+        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->tickets->list($filters) as $r) { 
+            $suma += $r->price;
+        }
+        echo $suma;
+        ?></span></h3>   
+
+
+
         <?php // if($filters) { ?>     
         <div class="card p-4 listTable">
             <?php require_once 'list.php' ?>        
@@ -83,37 +83,27 @@
 </div>
 
 <script>
+
+$(".new").on("click", function() {
+    id = $(this).data('id');
+    $.post( "?c=Tickets&a=New", { id }).done(function( data ) {
+        $('#xsModal').modal('toggle');
+        $('#xsModal .modal-content').html(data);
+    });
+});
+
 $(document).ready(function() {
     var table = $('#example').DataTable({
         "order": [],
         "lengthChange": false,
         "paginate": false,
         "scrollX" : true,
-        "autoWidth": false,
-        "columns": [
-            null,
-            null,
-            null,
-            { "width": "12%" },
-        ]
-    });
-
-    $('.select2_Indextags').select2({tags:true,<?php echo !empty($_POST['keywords']) ? "data: " . json_encode($_POST['keywords']) : '' ?>});
-    <?php if(!empty($_POST['keywords'])) { ?>
-    $('.select2_Indextags').val(<?php echo json_encode($_POST['keywords']) ?>).trigger('change')
-    <?php } ?>
-});
-
-$(".new").on("click", function() {
-    id = $(this).data('id');
-    $.post( "?c=Centre&a=New", { id }).done(function( data ) {
-        $('#xlModal').modal('toggle');
-        $('#xlModal .modal-content').html(data);
+        "autoWidth": false
     });
 });
+
 
 $(document).on('submit', '#Filters_Form', function(e) {
-
     var isValid = 0;
     $("input").each(function() {
     if ($(this).val()) {
@@ -133,13 +123,14 @@ $(document).on('submit', '#Filters_Form', function(e) {
     $("#loading").show();
 });
 
-$(document).on('submit', '#Centre_Form', function(e) {
+$(document).on('submit', '#Tickets_Form', function(e) {
     e.preventDefault();
-    if (document.getElementById("Centre_Form").checkValidity()) {
+    if (document.getElementById("Tickets_Form").checkValidity()) {
         $("#loading").show();
-        $.post( "?c=Centre&a=Save", $("#Centre_Form").serialize()).done(function(res) {
+        $.post( "?c=Tickets&a=Save", $("#Tickets_Form").serialize()).done(function(res) {
             location.reload();
         });
     }
 });
+
 </script>

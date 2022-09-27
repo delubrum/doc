@@ -24,12 +24,12 @@
      
     <div class="container">
     <div class="img">
-    <img src="assets/img/bg.jpg" alt="">
+    <img src="assets/img/intro.jpg" alt="">
     </div>    
     <div class="login-container">
     <form method="post" id="login_form">
-        <img src="assets/img/logo.png" alt="" class="avatar" >
-         <h2>Bienvenido</h2>
+        <img src="assets/img/logo.jpg" alt="" class="avatar" >
+         <h2></h2>
           <div class="input-div one">
            <div class="i">
           <i class="fa fa-user"></i>
@@ -48,7 +48,7 @@
             <input type="password" class="input" placeholder="pass" name="pass">
         </div>
         </div>
-        <a href="#">Registrate!</a>
+        
         <input type="submit" class="btn" value="Login">
         </form>
     </div>

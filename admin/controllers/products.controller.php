@@ -58,4 +58,33 @@ class ProductsController{
     : $this->init->update($table,$item,$_POST['id']);
   }
 
+
+  public function ByCategory(){
+    if  (!empty($_REQUEST["id"])) {
+    foreach($this->products->getByCategory($_REQUEST["id"]) as $r) {
+      $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
+      $price = $r->price;
+      if ($r->iqty > 0) {
+        echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price)</button>";
+      } else {
+        echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
+      }
+      }
+    }
+  }
+  
+  public function Search(){
+    if  (!empty($_POST["description"])) {
+    foreach($this->products->search($_POST["description"]) as $r) {
+      $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
+      $price = $r->price;
+      if ($r->iqty > 0) {
+      echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price K)</button>";
+      } else {
+        echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
+      }  
+    }
+    }
+  }
+
 }

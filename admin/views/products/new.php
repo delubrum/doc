@@ -39,8 +39,8 @@
                                 <label>* Precio de Venta</label>
                                 <div class="input-group">
                                     <input id="price"
-                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '$ ', 'placeholder': '0'"
-                                        class="form-control" name="price" placeholder="$ 0" required>
+                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                        class="form-control" name="price" placeholder="0" required>
                                 </div>
                             </div>
                         </div>
