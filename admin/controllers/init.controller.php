@@ -16,17 +16,8 @@ class InitController{
   public function Index(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-CRB"]);
-    if (!empty($this->cashbox->last()->type)) {
-      $type=$this->cashbox->last()->type;
-      if ($type==1) {
-        require_once 'views/layout/header.php';
-        require_once 'views/layout/page.php';
-      } else {
-        require_once 'views/cashbox/open.php';
-      }
-    } else {
-      require_once 'views/cashbox/open.php';
-    }
+    require_once 'views/layout/header.php';
+    require_once 'views/layout/page.php';
   }
 
   public function SessionRefresh(){

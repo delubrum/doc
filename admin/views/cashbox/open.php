@@ -75,8 +75,8 @@ $(document).on('submit', '#Open_Form', function(e) {
     e.preventDefault();
     if (document.getElementById("Open_Form").checkValidity()) {
         $("#loading").show();
-        $.post( "?c=Cashbox&a=Open", $("#Open_Form").serialize()).done(function(res) {
-            location.reload();
+        $.post( "?c=Cashbox&a=OpenSave", $("#Open_Form").serialize()).done(function(res) {
+            window.location = "?c=Init&a=Index";
         });
     }
 });

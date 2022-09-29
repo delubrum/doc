@@ -118,4 +118,50 @@ class Init {
         }
     }
 
+    public function toExcel($rows,$filename){
+        $doc = new Spreadsheet();
+        $doc
+        ->getProperties()
+        ->setCreator("Sigma")
+        ->setLastModifiedBy('Sigma')
+        ->setTitle($filename)
+        ->setDescription($filename);
+
+        $sheet = $doc->getActiveSheet();
+        $sheet->setTitle("Report");
+        $header = array();
+        if(!empty($rows)){
+            $firstRow = $rows[0];
+            foreach($firstRow as $colName => $val){
+                $header[] = $colName;
+            }
+        }
+        $sheet->fromArray($header, null, 'A1');
+        $i = 2;
+        foreach ($rows as $r) {
+            $x = "A$i";
+            $sheet->fromArray((array) $r, null, $x);
+            $i++;
+        }
+               
+        $writer = new Xlsx($doc);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="'.$filename.'.xlsx"');
+        $writer->save('php://output');
+    }
+
+    public function lastCashbox($filters = '') {
+        try {
+            $stm = $this->pdo->prepare("SELECT * 
+            FROM cashbox
+            ORDER BY id DESC 
+            LIMIT 1 ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
 }

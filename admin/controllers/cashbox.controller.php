@@ -20,7 +20,11 @@ class CashboxController{
     $this->others = new Others();
   }
 
-  public function Index(){
+  public function Open(){
+    require_once 'views/cashbox/open.php';
+  }
+
+  public function Close(){
     require_once "middlewares/check.php";
     $user = $this->users->UserGet($_SESSION["id-CRB"]);
     $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
@@ -32,35 +36,30 @@ class CashboxController{
     }
   }
 
-  public function Open(){
+  public function OpenSave(){
     require_once "middlewares/check.php";
     $item = new stdClass();
-    $item->userId = $_SESSION["id-CRB"];
-    $item->type = 1;
-    $item->amount = substr($_REQUEST['amount'],2);
-    $table = 'cashbox';
-    $this->init->save($table,$item);
+    $item->openedBy = $_SESSION["id-CRB"];
+    $item->open = $_REQUEST['amount'];
+    $this->cashbox->open($item);
   }
 
-  public function Close(){
+  public function CloseSave(){
     require_once "middlewares/check.php";
     $item = new stdClass();
-    $item->userId = $_SESSION["id-CRB"];
-    $item->type = 2;
-    $item->amount = substr($_REQUEST['amount'],2);
-    $table = 'cashbox';
-    $this->init->save($table,$item);
-
-    $initial_id=$this->cashbox->last('and type = 1')->id;
-    $final_id=$this->cashbox->last('and type = 2')->id;
-    $initial=$this->cashbox->get($initial_id)->amount;
-    $final=$this->cashbox->get($final_id)->amount;
-    $start=$this->cashbox->get($initial_id)->createdAt;
-    $end=$this->cashbox->get($final_id)->createdAt;
+    $item->closedBy = $_SESSION["id-CRB"];
+    $item->close = $_REQUEST['amount'];
+    $item->id=$this->init->lastCashbox()->id;
+    $this->cashbox->close($item);
+    $id=$this->init->lastCashbox()->id;
+    $open=$this->cashbox->get($id)->open;
+    $close=$this->cashbox->get($id)->close;
+    $start=$this->cashbox->get($id)->openedAt;
+    $end=$this->cashbox->get($id)->closedAt;
     $cash=$this->sales->get($start,$end)->total;
     $others_income=$this->others->get($start,$end,'IN')->total;
     $others_outcome=$this->others->get($start,$end,'OUT')->total;
-    $diference = $final - ($cash+$others_income+$initial-$others_outcome);
+    $diference = $close - ($cash+$others_income+$open-$others_outcome);
     if ($diference == 0) {
       $diference = "<div style='color:green'><b>Diferencia:</b>  $$diference</div>";
     } elseif ($diference > 0) {
@@ -70,14 +69,39 @@ class CashboxController{
     }
     echo "
     $start - $end
-    <br><b>Caja Inicio:</b> $" . number_format($initial, 0, '.', ',') . 
+    <br><b>Caja Inicio:</b> $" . number_format($open, 0, '.', ',') . 
     "<br><b>Efectivo:</b> $" . number_format($cash, 0, '.', ',') .
     "<br><b>Otros Ingresos: $</b>" . number_format($others_income, 0, '.', ',') . 
     "<br><b>Efectivo + Otros: $</b>" . number_format(($cash+$others_income), 0, '.', ',').
     "<br><b>Egresos</b>: $" . number_format($others_outcome, 0, '.', ',') .
-    "<br><br><b>TOTAL CAJA: $" . number_format(($cash+$others_income+$initial-$others_outcome), 0, '.', ',') .
-    "<br>Caja Cierre: $</b>" . number_format($final, 0, '.', ',') .
+    "<br><br><b>TOTAL CAJA: $" . number_format(($cash+$others_income+$open-$others_outcome), 0, '.', ',') .
+    "<br>Caja Cierre: $</b>" . number_format($close, 0, '.', ',') .
     $diference;
+  }
+
+  public function History(){
+    require_once "middlewares/check.php";
+    $user = $this->users->UserGet($_SESSION["id-CRB"]);
+    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
+    $filters = '';
+    $today = date("Y-m-d");
+    $firstday = date('Y-m-01', strtotime($today));
+    $lastday = date('Y-m-t', strtotime($today));
+    (!empty($_REQUEST['from'])) ? $filters .= " and a.openedAt  >='" . $_REQUEST['from']."'": $filters .= " and a.openedAt  >= $firstday";
+    (!empty($_REQUEST['to'])) ? $filters .= " and a.closedAt <='" . $_REQUEST['to']." 23:59:59'": $filters .= " ";
+    if (in_array(10, $permissions)) {
+      require_once 'views/layout/header.php';
+      require_once 'views/cashbox/history.php';
+    } else {
+      $this->init->redirect();
+    }
+  }
+
+  public function Excel(){
+    $filters = '';
+    (!empty($_REQUEST['from'])) ? $filters .= " and a.createdAt  >='" . $_REQUEST['from']."'": $filters .= " and a.createdAt  >= $firstday";
+    (!empty($_REQUEST['to'])) ? $filters .= " and a.createdAt <='" . $_REQUEST['to']." 23:59:59'": $filters .= " ";
+    $this->init->toExcel($this->cashbox->excel($filters),'Historico Caja');
   }
 
 }

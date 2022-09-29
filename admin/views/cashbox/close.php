@@ -60,7 +60,7 @@ $('#cashbox_close_form').on('submit', function(e) {
         }).then((result) => {
             if (result.isConfirmed) {
                 $("#loading").fadeIn();
-                $.post("?c=Cashbox&a=Close", {
+                $.post("?c=Cashbox&a=CloseSave", {
                         amount: $("#amount").val()
                     },
                     function(data) {
