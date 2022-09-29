@@ -87,4 +87,28 @@ class ProductsController{
     }
   }
 
+  public function Barcodes(){
+    $array = $_REQUEST['id'];
+    $val = $_REQUEST['val'];
+    echo '
+    <style>
+    @media print {    
+        .noprint {
+            display: none !important;
+        }
+    }
+    </style>
+    <center>
+    <button style="postion:fixed;" class="noprint" onclick="window.print();return false;">IMPRIMIR</button>
+    </center>
+    <p style="padding:10px"></p>
+    ';
+    for ($i = 0; $i < count($array) ; $i++) {
+      $id = str_pad(23, 7, "0", STR_PAD_LEFT);
+      for ($j = 0; $j < $val[$i]; $j++) { ?>
+        <img src="middlewares/barcode.php?text='<?php echo $id ?>'&size=50&codetype=Code39&print=true">
+      <?php }
+    }
+  }
+
 }

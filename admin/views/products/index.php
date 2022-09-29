@@ -13,6 +13,10 @@
                 <button type="button" class="btn btn-primary float-right new">
                     <i class="fas fa-plus"></i> Nuevo
                 </button>
+                <button type="button" class="btn btn-primary float-right noprint mr-2 tickets">
+                    <i class="fas fa-print"></i> Imprimir Selección
+                </button>
+
                 <h1 class="m-0 text-dark">Productos</h1>
             </div>
         </div>
@@ -71,5 +75,20 @@ $('.active').change(function() {
         id: id,
         val: val
     });
+});
+
+$(".tickets").click(function(){
+    var array = $("input[name=checkid]").map(function(){return $(this).val()}).get();
+    var arrayb = $("input[name=checkid]").map(function(){return $(this).data('id')}).get();
+    if(arrayb.length != 0) {
+        $("#loading").show();
+        $.post('?c=Products&a=Barcodes', {'id[]': arrayb, 'val[]': array }, function (data) {
+            var w = window.open('about:blank');
+            w.document.open();
+            w.document.write(data);
+            w.document.close();
+            $("#loading").hide();
+        });
+    }
 });
 </script>

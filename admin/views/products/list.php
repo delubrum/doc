@@ -1,6 +1,7 @@
 <table id="example" class="display nowrap" style="width:100%">
     <thead>
         <tr>
+            <th></th>
             <th>Id</th>
             <th>Categoria</th>
             <th>Descripción</th>
@@ -12,6 +13,7 @@
     <tbody>
         <?php foreach($this->products->list() as $r) { ?>
         <tr>
+            <th><input style="width:50px" type="number" name="checkid" class="printqty" value="0" data-id="<?php echo $r->id ?>"></th>
             <td><?php echo $r->id ?></td>
             <td><?php echo $r->categoryname ?></td>
             <td><?php echo  mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8"); ?></td>
