@@ -104,7 +104,7 @@ class ProductsController{
     <p style="padding:10px"></p>
     ';
     for ($i = 0; $i < count($array) ; $i++) {
-      $id = str_pad(23, 7, "0", STR_PAD_LEFT);
+      $id = str_pad($array[$i], 7, "0", STR_PAD_LEFT);
       for ($j = 0; $j < $val[$i]; $j++) { ?>
         <img src="middlewares/barcode.php?text='<?php echo $id ?>'&size=50&codetype=Code39&print=true">
       <?php }
