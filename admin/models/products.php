@@ -51,6 +51,7 @@ class Products {
         $stm = $this->pdo->prepare("SELECT a.*
         FROM products a
         WHERE categoryId = $id
+        and active = 1
         ORDER BY id ASC");
         $stm->execute();
         return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -65,6 +66,7 @@ class Products {
         $stm = $this->pdo->prepare("SELECT a.*
         FROM products a
         WHERE description like ? 
+        and active = 1
         ORDER BY id ASC");
         $stm->execute(array("%$description%"));
         return $stm->fetchAll(PDO::FETCH_OBJ);

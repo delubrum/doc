@@ -5,6 +5,9 @@ ini_set('display_errors', '1');
 require_once 'models/init.php';
 require_once 'models/users.php';
 require_once 'models/products.php';
+require_once 'models/purchases.php';
+require_once 'models/sales.php';
+
 
 class ProductsController{
   private $model;
@@ -12,6 +15,9 @@ class ProductsController{
     $this->products = new Products();
     $this->init = new Init();
     $this->users = new Users();
+    $this->purchases = new Purchases();
+    $this->sales = new Sales();
+
   }
 
 
@@ -60,8 +66,9 @@ class ProductsController{
     foreach($this->products->getByCategory($_REQUEST["id"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
       $price = $r->price;
-      if (true) {
-        echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price)</button>";
+      $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
+      if ($qty > 0) {
+        echo "<button id='product' data-id='$r->id' data-price='$r->price' data-qty='$qty' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price)</button>";
       } else {
         echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
       }
@@ -74,8 +81,9 @@ class ProductsController{
     foreach($this->products->search($_POST["description"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
       $price = $r->price;
-      if (true) {
-      echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price K)</button>";
+      $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
+      if ($qty > 0) {
+      echo "<button id='product' data-id='$r->id' data-price='$r->price' data-qty='$qty' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price K)</button>";
       } else {
         echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
       }  

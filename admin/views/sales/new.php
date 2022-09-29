@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>* Cantidad</label>
+                                <label>* Cantidad (En Inventario: <span id="iqty" class="text-primary"></span>)</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="nav-icon fas fa-hashtag"></i></span>
@@ -228,7 +228,11 @@ $(document).on('input', '#product_search', function() {
 $(document).on("click", "#product", function() {
     id = $(this).data('id');
     price = $(this).data('price');
+    qty = $(this).data('qty');
+    aqty = $("#qty_input" + id).val();
+    if (!aqty) {aqty = 0}
     description = $(this).html();
+    $("#qty_price #iqty").html(qty - aqty);
     $("#qty_price #productId").val(id);
     $("#qty_price #price").val(price);
     $("#qty_price #description").val(description);
@@ -252,7 +256,13 @@ $(document).on("submit", "#product_add", function(e) {
         description = $('#description').val();
         price = $('#price').val();
         qty = $('#qty').val();
+        iqty = parseInt($('#qty_price #iqty').html());
         pricetotal = parseFloat(price) * parseInt(qty);
+
+        if (qty > iqty) {
+            toastr.error('No hay suficiente en inventario');
+            return;       
+        }
         div = `
         <div class="row p-1 bg-light removediv" id="product${id}">
             <div class="col-1">

@@ -93,6 +93,21 @@ class Sales {
         }
     }
 
+    public function getQty($productId){
+        try {
+            $stm = $this->pdo->prepare("SELECT sum(qty) as total
+            FROM sales_detail
+            WHERE productId = '$productId'
+            AND cancelledAt is null
+            ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
     public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned) {
         try {
             $sql = "INSERT INTO sales (cash,obs,userId,returned) VALUES (
@@ -127,6 +142,16 @@ class Sales {
             $sql = "UPDATE sales SET 
             cancelledAt = now()
             WHERE id = '$saleId'
+            ";
+            $this->pdo->prepare($sql)->execute();
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+        try {
+            $sql = "UPDATE sales_detail SET 
+            cancelledAt = now()
+            WHERE saleId = '$saleId'
             ";
             $this->pdo->prepare($sql)->execute();
         }

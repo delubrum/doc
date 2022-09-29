@@ -29,11 +29,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($this->inventory->list() as $r) { ?>
+                    <?php 
+                    foreach($this->products->list('and active = 1') as $r) { 
+                    $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
+                    ?>
                     <tr>
                         <td><?php echo $r->description ?></td>
-                        <td><?php echo $r->name ?></td>
-                        <td><?php echo $r->qty ?></td>
+                        <td><?php echo $r->categoryname ?></td>
+                        <td><?php echo $qty ?></td>
                     </tr>
                     <?php } ?>
                 </tbody>
