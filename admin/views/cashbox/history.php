@@ -61,14 +61,6 @@
             </div>
         </div>
 
-        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->cashbox->list($filters) as $r) { 
-            $suma += $r->close;
-        }
-        echo $suma;
-        ?></span></h3>   
-
-
-
         <?php // if($filters) { ?>     
         <div class="card p-4 listTable">
             <?php require_once 'list.php' ?>        
@@ -80,14 +72,6 @@
 </div>
 
 <script>
-
-$(".new").on("click", function() {
-    id = $(this).data('id');
-    $.post( "?c=Tickets&a=New", { id }).done(function( data ) {
-        $('#xsModal').modal('toggle');
-        $('#xsModal .modal-content').html(data);
-    });
-});
 
 $(document).ready(function() {
     var table = $('#example').DataTable({
@@ -120,14 +104,13 @@ $(document).on('submit', '#Filters_Form', function(e) {
     $("#loading").show();
 });
 
-$(document).on('submit', '#Tickets_Form', function(e) {
-    e.preventDefault();
-    if (document.getElementById("Tickets_Form").checkValidity()) {
-        $("#loading").show();
-        $.post( "?c=Tickets&a=Save", $("#Tickets_Form").serialize()).done(function(res) {
-            location.reload();
-        });
-    }
+
+$(".detail").on("click", function() {
+    id = $(this).data('id');
+    $.post( "?c=Cashbox&a=Detail", { id }).done(function( data ) {
+        $('#xsModal').modal('toggle');
+        $('#xsModal .modal-content').html(data);
+    });
 });
 
 </script>

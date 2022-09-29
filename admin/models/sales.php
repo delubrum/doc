@@ -93,27 +93,6 @@ class Sales {
         }
     }
 
-    public function InventoryGet($id) {
-        try {
-            $stm = $this->pdo->prepare("SELECT * FROM inventory WHERE productId = ?");
-            $stm->execute(array($id));
-            return $stm->fetch(PDO::FETCH_OBJ);
-        }
-            catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
-    public function InventoryUpdate($qty,$productId) {
-        try {
-            $sql = "UPDATE inventory set qty = ? WHERE productId = ?";
-            $this->pdo->prepare($sql)->execute(array($qty,$productId));
-        }
-            catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
-
     public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned) {
         try {
             $sql = "INSERT INTO sales (cash,obs,userId,returned) VALUES (
@@ -140,12 +119,7 @@ class Sales {
         }
             catch (Exception $e) {
             die($e->getMessage());
-        }
-        foreach($productId as $k => $r){
-            $inventory_qty = $qty[$k] - $this->InventoryGet($r)->qty;
-            $this->InventoryUpdate($inventory_qty,$r);
-        }
-          
+        }         
     }
 
     public function refund($saleId) {

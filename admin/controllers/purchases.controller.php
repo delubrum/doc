@@ -6,7 +6,6 @@ require_once 'models/init.php';
 require_once 'models/users.php';
 require_once 'models/purchases.php';
 require_once 'models/products.php';
-require_once 'models/inventory.php';
 
 
 class PurchasesController{
@@ -14,7 +13,6 @@ class PurchasesController{
   public function __CONSTRUCT(){
     $this->purchases = new Purchases();
     $this->products = new Products();
-    $this->inventory = new Inventory();
     $this->init = new Init();
     $this->users = new Users();
   }
@@ -45,28 +43,14 @@ class PurchasesController{
   public function Save(){
     require_once "middlewares/check.php";
     $item = new stdClass();
-    $inv = new stdClass();
     foreach($_POST as $k => $val) {
       if (!empty($val)) {
         if($k != 'id') {
-          if($k == 'price') {
-          $item->{$k} = substr($val,2);
-          } else {
           $item->{$k} = $val;
-          }
         }
       }
     }
-    if ($this->inventory->get($_REQUEST['productId'])) {
-      $this->init->save('purchases',$item);
-      $inv->iqty = $_REQUEST['qty'] + $this->inventory->get($_REQUEST['productId'])->qty;
-      $this->init->update('inventory',$inv,$_REQUEST['productId']);
-    } else {
-      $inv->productId = $_REQUEST['productId'];
-      $inv->qty = $_REQUEST['qty'];
-      $this->init->save('purchases',$item);
-      $this->init->save('inventory',$inv);
-    }
+    $this->init->save('purchases',$item);
   }
 
 }

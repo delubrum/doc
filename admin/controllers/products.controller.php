@@ -45,11 +45,7 @@ class ProductsController{
     foreach($_POST as $k => $val) {
       if (!empty($val)) {
         if($k != 'id') {
-          if($k == 'price') {
-          $item->{$k} = substr($val,2);
-          } else {
           $item->{$k} = $val;
-          }
         }
       }
     }
@@ -64,7 +60,7 @@ class ProductsController{
     foreach($this->products->getByCategory($_REQUEST["id"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
       $price = $r->price;
-      if ($r->iqty > 0) {
+      if (true) {
         echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price)</button>";
       } else {
         echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
@@ -78,7 +74,7 @@ class ProductsController{
     foreach($this->products->search($_POST["description"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
       $price = $r->price;
-      if ($r->iqty > 0) {
+      if (true) {
       echo "<button id='product' data-id='$r->id' data-price='$r->price' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price K)</button>";
       } else {
         echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 

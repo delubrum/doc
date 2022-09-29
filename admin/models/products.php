@@ -20,7 +20,7 @@ class Products {
             ON a.categoryId = b.id
             WHERE 1=1
             $filters
-            ORDER BY b.id, a.description DESC
+            ORDER BY a.id DESC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);
@@ -48,10 +48,8 @@ class Products {
 
     public function getByCategory($id) {
         try {
-        $stm = $this->pdo->prepare("SELECT *, b.qty as iqty
+        $stm = $this->pdo->prepare("SELECT a.*
         FROM products a
-        LEFT JOIN inventory b
-        ON a.id = b.productId
         WHERE categoryId = $id
         ORDER BY id ASC");
         $stm->execute();
@@ -64,10 +62,8 @@ class Products {
 
     public function search($description) {
         try {
-        $stm = $this->pdo->prepare("SELECT *, b.qty as iqty
+        $stm = $this->pdo->prepare("SELECT a.*
         FROM products a
-        LEFT JOIN inventory b
-        ON a.id = b.productId
         WHERE description like ? 
         ORDER BY id ASC");
         $stm->execute(array("%$description%"));

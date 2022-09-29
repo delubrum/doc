@@ -67,11 +67,7 @@ class OthersController{
     foreach($_POST as $k => $val) {
       if (!empty($val)) {
         if($k != 'id') {
-          if($k == 'price') {
-          $item->{$k} = substr($val,2);
-          } else {
           $item->{$k} = $val;
-          }
         }
       }
     }

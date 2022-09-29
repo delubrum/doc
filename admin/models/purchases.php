@@ -32,4 +32,22 @@ class Purchases {
         }
     }
 
+
+    public function get($initial,$final){
+        try {
+            $stm = $this->pdo->prepare("SELECT sum(price) as total
+            FROM purchases 
+            WHERE createdAt >= ?
+            AND createdAt <= ? 
+            AND cancelledAt is null
+            ");
+            $stm->execute(array($initial,$final));
+            return $stm->fetch(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+
 }

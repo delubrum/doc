@@ -97,6 +97,45 @@ class CashboxController{
     }
   }
 
+  public function Detail(){
+    $id=$_REQUEST['id'];
+    $open=$this->cashbox->get($id)->open;
+    $close=$this->cashbox->get($id)->close;
+    $start=$this->cashbox->get($id)->openedAt;
+    $end=$this->cashbox->get($id)->closedAt;
+    $cash=$this->sales->get($start,$end)->total;
+    $others_income=$this->others->get($start,$end,'IN')->total;
+    $others_outcome=$this->others->get($start,$end,'OUT')->total;
+    $diference = $close - ($cash+$others_income+$open-$others_outcome);
+    echo "
+    <div class='modal-header'>
+    <h5 class='modal-title'>Detalle</b></h5>
+    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+        <span aria-hidden='true'>&times;</span>
+    </button>
+    </div>
+    <div class='p-4 text-center'>
+    ";
+    if ($diference == 0) {
+      $diference = "<div style='color:green'><b>Diferencia:</b>  $$diference</div>";
+    } elseif ($diference > 0) {
+      $diference = "<div style='color:yellow'><b>Diferencia:</b> $$diference</div>";
+    } else {
+      $diference = "<div style='color:red'><b>Diferencia:</b> $$diference</div>";
+    }
+    echo "
+    $start - $end
+    <br><b>Caja Inicio:</b> $" . number_format($open, 0, '.', ',') . 
+    "<br><b>Efectivo:</b> $" . number_format($cash, 0, '.', ',') .
+    "<br><b>Otros Ingresos: $</b>" . number_format($others_income, 0, '.', ',') . 
+    "<br><b>Efectivo + Otros: $</b>" . number_format(($cash+$others_income), 0, '.', ',').
+    "<br><b>Egresos</b>: $" . number_format($others_outcome, 0, '.', ',') .
+    "<br><br><b>TOTAL CAJA: $" . number_format(($cash+$others_income+$open-$others_outcome), 0, '.', ',') .
+    "<br>Caja Cierre: $</b>" . number_format($close, 0, '.', ',') .
+    $diference .
+    "</div>";
+  }
+
   public function Excel(){
     $filters = '';
     (!empty($_REQUEST['from'])) ? $filters .= " and a.createdAt  >='" . $_REQUEST['from']."'": $filters .= " and a.createdAt  >= $firstday";

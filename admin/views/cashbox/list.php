@@ -8,6 +8,7 @@
             <th>Cierre</th>
             <th>Valor Cierre</th>
             <th>Usuario</th>
+            <th class="text-right">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -20,6 +21,7 @@
             <td><?php echo $r->closedAt ?></td>
             <td>$ <?php echo number_format($r->close,1) ?></td>
             <td><?php echo $r->closeuser ?></td>
+            <td class="text-right"><button type="button" class="btn btn-primary detail" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Detalle"><i class="fas fa-eye"></td>
         </tr>
         <?php } ?>
     </tbody>
