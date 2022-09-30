@@ -6,6 +6,7 @@ require_once 'models/init.php';
 require_once 'models/users.php';
 require_once 'models/cashbox.php';
 require_once 'models/sales.php';
+require_once 'models/purchases.php';
 require_once 'models/others.php';
 
 
@@ -17,6 +18,7 @@ class CashboxController{
     $this->users = new Users();
     $this->cashbox = new CashBox();
     $this->sales = new Sales();
+    $this->purchases = new Purchases();
     $this->others = new Others();
   }
 

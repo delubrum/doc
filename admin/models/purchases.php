@@ -35,7 +35,7 @@ class Purchases {
 
     public function get($initial,$final){
         try {
-            $stm = $this->pdo->prepare("SELECT sum(price) as total
+            $stm = $this->pdo->prepare("SELECT sum(price*qty) as total
             FROM purchases 
             WHERE createdAt >= ?
             AND createdAt <= ? 

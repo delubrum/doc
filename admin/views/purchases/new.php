@@ -31,14 +31,6 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <label>Notas</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="notes">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
                                 <label>* Cantidad</label>
                                 <div class="input-group">
                                     <input type="number" name="qty" class="form-control" required>
@@ -52,6 +44,14 @@
                                     <input id="price"
                                         data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
                                         class="form-control" name="price" placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Notas</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="notes">
                                 </div>
                             </div>
                         </div>
