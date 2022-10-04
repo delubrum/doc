@@ -20,9 +20,13 @@
                                 <div class="input-group">
                                     <select class="form-control select2" style="width:100%" name="productId" required>
                                         <option value=''></option>
-                                        <?php foreach($this->products->list('and active = 1') as $r) { ?>
-                                        <option value='<?php echo $r->id ?>'><?php echo $r->description ?> [<?php echo $r->categoryname ?>] ($<?php echo $r->price/1000 ?> K)
-                                        </option>
+                                        <?php foreach($this->products->list('and active = 1') as $r) { 
+                                             $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
+                                             $size = mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8");
+                                             $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
+                                             $price = $r->price;
+                                            ?>
+                                        <option value='<?php echo $r->id ?>'><?php echo "$description / $size / $color / $$price" ?></option>
                                         <?php } ?>
 
                                     </select>

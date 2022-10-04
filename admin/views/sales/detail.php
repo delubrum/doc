@@ -121,7 +121,7 @@
                 <?php echo $id->createdAt?>
             </p>
         </div>
-        <button id="btnPrint" class="hidden-print">Print</button>
+        <button id="btnPrint" class="hidden-print">IMPRIMIR</button>
         <script src="script.js"></script>
     </body>
 </html>

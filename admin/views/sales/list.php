@@ -40,7 +40,7 @@
             </td>
             <td><?php echo $r->username ?></td>
             <td class="text-right">
-                <?php if (!$r->cancelledAt) { ?> <button type="button" class="btn btn-danger refund" data-toggle='modal' data-target='#refund' data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Refund"> <i class="fas fa-redo"></i> </button> <?php } ?>
+                <?php if (!$r->cancelledAt) { ?> <button type="button" class="btn btn-danger refund" data-toggle='modal' data-target='#refund' data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Devolucion"> <i class="fas fa-redo"></i> </button> <?php } ?>
                 <a class="btn btn-primary text-white m-1" style="cursor:pointer" data-toggle="tooltip" data-placement="top" href="?c=Sales&a=Detail&id=<?php echo $r->id; ?>" target="_blank" title="Ver"><i class="fas fa-eye"></i></a>
             </td>
         </tr>
