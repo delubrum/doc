@@ -49,7 +49,8 @@ class SalesController{
     $returned=$_REQUEST['returned'];
     $discount=$_REQUEST['discount'];
     $total_price=array_sum($price);
-    $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount);
+    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount);
+    echo $id;
   }
 
   public function Refund(){

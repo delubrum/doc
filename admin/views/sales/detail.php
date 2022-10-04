@@ -131,4 +131,6 @@
 $btnPrint.addEventListener("click", () => {
     window.print();
 });
+
+window.print();
 </script>

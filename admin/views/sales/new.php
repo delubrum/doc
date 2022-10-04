@@ -136,7 +136,7 @@
                                         </div>
                                         <input id="discount"
                                             data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control"placeholder="0" required>
+                                            class="form-control" value="0" required>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +151,7 @@
                                         </div>
                                         <input id="payment"
                                             data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control" placeholder="0" required>
+                                            class="form-control" value="0" required>
                                     </div>
                                 </div>
                             </div>
@@ -410,6 +410,8 @@ $('#sale_save_send').on('click', function(e) {
                     value: obs
                 });
                 $.post("?c=Sales&a=Save", data, function(data) {
+                    id = data.trim();
+                    window.open("http://localhost/curuba/admin/?c=Sales&a=Detail&id=" + id);
                     location.reload();
                 });
             }

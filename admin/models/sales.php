@@ -135,7 +135,9 @@ class Sales {
         }
             catch (Exception $e) {
             die($e->getMessage());
-        }         
+        }   
+        
+        return $lastId;
     }
 
     public function refund($saleId) {
