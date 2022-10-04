@@ -95,8 +95,12 @@
                     </tr>
                     <?php } ?>
                     <tr>
+                        <th colspan="2">DESCUENTO</th>
+                        <td class="price"><?php echo $id->discount ?></td>
+                    </tr>
+                    <tr>
                         <th colspan="2">TOTAL</th>
-                        <td class="price"><?php echo $id->cash ?></td>
+                        <td class="price"><?php echo $id->cash-$id->discount ?></td>
                     </tr>
                 </tbody>
             </table>

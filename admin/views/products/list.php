@@ -5,6 +5,8 @@
             <th>Id</th>
             <th>Categoria</th>
             <th>Descripción</th>
+            <th>Talla</th>
+            <th>Color</th>
             <th>Precio de Venta</th>
             <th>Código de Barras</th>
             <th>Acciones</th>
@@ -17,7 +19,9 @@
             <td><?php echo $r->id ?></td>
             <td><?php echo $r->categoryname ?></td>
             <td><?php echo  mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8"); ?></td>
-            <td>$ <?php echo number_format($r->price,1) ?></td>
+            <td><?php echo  mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8"); ?></td>
+            <td><?php echo  mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8"); ?></td>
+            <td>$ <?php echo number_format($r->price,2) ?></td>
             <td><img src="middlewares/barcode.php?text='<?php echo $r->code ?>'&size=50&codetype=Code39&print=true" onclick="newWindow = window.open('middlewares/barcode.php?text=<?php echo $r->code ?>&size=50&codetype=Code39&print=true'); newWindow.print();"> </td>
             <td class="btn-group">
                 <div class="custom-control custom-switch pt-2">

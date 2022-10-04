@@ -65,12 +65,14 @@ class ProductsController{
     if  (!empty($_REQUEST["id"])) {
     foreach($this->products->getByCategory($_REQUEST["id"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
+      $size = mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8");
+      $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
       $price = $r->price;
       $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
       if ($qty > 0) {
-        echo "<button id='product' data-id='$r->id' data-price='$r->price' data-qty='$qty' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price)</button>";
+        echo "<button id='product' data-id='$r->id' data-description='$description' data-price='$r->price' data-qty='$qty' data-size='$size' data-color='$color' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description / $size / $color / $$price</button>";
       } else {
-        echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
+        echo "<button type='button' class='btn btn-block bg-danger'>$description / $size / $color / $$price</button>"; 
       }
       }
     }
@@ -80,12 +82,14 @@ class ProductsController{
     if  (!empty($_POST["description"])) {
     foreach($this->products->search($_POST["description"]) as $r) {
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
+      $size = mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8");
+      $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
       $price = $r->price;
       $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
       if ($qty > 0) {
-      echo "<button id='product' data-id='$r->id' data-price='$r->price' data-qty='$qty' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description ($$price K)</button>";
+        echo "<button id='product' data-id='$r->id' data-description='$description' data-price='$r->price' data-qty='$qty' data-size='$size' data-color='$color' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description / $size / $color / $$price</button>";
       } else {
-        echo "<button type='button' class='btn btn-block bg-danger'>$description ($$price)</button>"; 
+        echo "<button type='button' class='btn btn-block bg-danger'>$description / $size / $color / $$price</button>"; 
       }  
     }
     }

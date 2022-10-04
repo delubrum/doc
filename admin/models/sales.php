@@ -108,13 +108,14 @@ class Sales {
         }
     }
 
-    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned) {
+    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount) {
         try {
-            $sql = "INSERT INTO sales (cash,obs,userId,returned) VALUES (
+            $sql = "INSERT INTO sales (cash,obs,userId,returned,discount) VALUES (
                 '$total_price',
                 '$obs',
                 '$userId',
-                '$returned'
+                '$returned',
+                '$discount'
                 )";
             $this->pdo->prepare($sql)->execute();
         }

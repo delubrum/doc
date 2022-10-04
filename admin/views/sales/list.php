@@ -5,7 +5,9 @@
             <th>Fecha</th>
             <th>Productos</th>
             <th>Precio Total</th>
-            <th>Pago</th>
+            <th>Descuento</th>
+            <th>Total Pagado</th>
+            <th>Efectivo</th>
             <th>Cambio</th>
             <th>Observaciones</th>
             <th>Usuario</th>
@@ -23,9 +25,11 @@
                 } 
                 ?>
             </td>
-            <td>$ <?php echo number_format($r->cash,1) ?></td>
-            <td>$ <?php echo number_format($r->cash+$r->returned,1) ?></td>
-            <td>$ <?php echo number_format($r->returned,1) ?></td>
+            <td>$ <?php echo number_format($r->cash,2) ?></td>
+            <td>$ <?php echo number_format($r->discount,2) ?></td>
+            <td>$ <?php echo number_format($r->cash-$r->discount,2) ?></td>
+            <td>$ <?php echo number_format($r->cash-$r->discount+$r->returned,2) ?></td>
+            <td>$ <?php echo number_format($r->returned,2) ?></td>
             <td>
                 <?php echo $r->obs ?> 
                 <?php if ($r->cancelledAt) {

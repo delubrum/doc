@@ -34,12 +34,30 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Talla</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="size" required style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Color</label>
+                                <div class="input-group">
+                                    <input class="form-control" name="color" required  style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>* Precio de Venta</label>
                                 <div class="input-group">
                                     <input id="price"
-                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
                                         class="form-control" name="price" placeholder="0" required>
                                 </div>
                             </div>

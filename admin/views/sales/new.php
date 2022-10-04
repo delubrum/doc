@@ -64,6 +64,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>* Precio</label>
@@ -73,11 +74,39 @@
                                                 class="nav-icon fas fa-dollar-sign"></i></span>
                                     </div>
                                     <input id="price"
-                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                        class="form-control" id="price" placeholder="0" required>
+                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                        class="form-control" placeholder="0" readonly>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Descripción</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="name" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Talla</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="size" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Color</label>
+                                <div class="input-group">
+                                    <input class="form-control" id="color" readonly>
+                                </div>
+                            </div>
+                        </div>
+
                         <input type="hidden" id="productId">
                         <input type="hidden" id="description">
                     </div>
@@ -99,6 +128,21 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
+                                    <label>* Descuento</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i
+                                                    class="nav-icon fas fa-dollar-sign"></i></span>
+                                        </div>
+                                        <input id="discount"
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                            class="form-control"placeholder="0" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
                                     <label>* Efectivo</label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -106,8 +150,8 @@
                                                     class="nav-icon fas fa-dollar-sign"></i></span>
                                         </div>
                                         <input id="payment"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control" id="price" placeholder="0" required>
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                            class="form-control" placeholder="0" required>
                                     </div>
                                 </div>
                             </div>
@@ -207,12 +251,12 @@ $(document).on('change', '#category', function() {
     });
 });
 
-$(document).on('input', '#payment', function() {
-    total = $('#total').html().replace(/\D/g, '')/10;
-    payment = $('#payment').val().replace(/\D/g, '')/10;
-    returned = payment-total;
-    $('#returned').val(returned.toFixed(1).replace(
-        /(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,"))
+$(document).on('input', '#payment,#discount', function() {
+    total = parseFloat($('#total').html().replace(/\D/g, '')/100);
+    payment = parseFloat($('#payment').val());
+    discount = parseFloat($('#discount').val());
+    returned = payment-total+discount;
+    $('#returned').val(returned.toFixed(2));
 });
 
 $(document).on('input', '#product_search', function() {
@@ -228,6 +272,9 @@ $(document).on('input', '#product_search', function() {
 $(document).on("click", "#product", function() {
     id = $(this).data('id');
     price = $(this).data('price');
+    name = $(this).data('description');
+    size = $(this).data('size');
+    color = $(this).data('color');
     qty = $(this).data('qty');
     aqty = $("#qty_input" + id).val();
     if (!aqty) {aqty = 0}
@@ -235,6 +282,9 @@ $(document).on("click", "#product", function() {
     $("#qty_price #iqty").html(qty - aqty);
     $("#qty_price #productId").val(id);
     $("#qty_price #price").val(price);
+    $("#qty_price #name").val(name);
+    $("#qty_price #size").val(size);
+    $("#qty_price #color").val(color);
     $("#qty_price #description").val(description);
     $(":input").inputmask();
 });
@@ -244,7 +294,7 @@ function Total(){
     $('[name^=price]').each(function() {
         sum += parseFloat($(this).val());
     });
-    $("#total").html('$ ' + sum.toFixed(1).replace(
+    $("#total").html('$ ' + sum.toFixed(2).replace(
         /(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,"));
 }
 
@@ -272,7 +322,7 @@ $(document).on("submit", "#product_add", function(e) {
                 ${description} x <span id="qty_show${id}">${qty}</span>
             </div>
             <div class="col-5 text-right font-weight-bold" id="price_show${id}">
-                $ ${pricetotal.toFixed(1).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")}
+                $ ${pricetotal.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")}
             </div>
             <input id="productId_input${id}" type="hidden" name="productId[]" value="${id}">
             <input id="qty_input${id}" type="hidden" name="qty[]" value="${qty}">
@@ -288,7 +338,7 @@ $(document).on("submit", "#product_add", function(e) {
             old_qty = $("#qty_input" + id).val();
             new_qty = parseInt(old_qty) + parseInt(qty);
             $("#price_input" + id).val(new_price);
-            $("#price_show" + id).html('$ ' + new_price.toFixed(1).replace(
+            $("#price_show" + id).html('$ ' + new_price.toFixed(2).replace(
                 /(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,"));
             $("#qty_input" + id).val(new_qty);
             $("#qty_show" + id).html(new_qty);
@@ -325,13 +375,14 @@ $('#product_add').on('submit', function(e) {
 });
 
 $('#sale_save_send').on('click', function(e) {
-    total = $('#total').html().replace(/\D/g, '')/10;
-    payment = $('#payment').val().replace(/\D/g, '')/10;
+    total = $('#total').html().replace(/\D/g, '')/100;
+    payment = parseFloat($('#payment').val());
     if (payment < total) {
         toastr.error('La cantidad ingresada no cubre el valor total');
         return;       
     }
-    returned = $("#returned").val().replace(/\D/g, '')/10;
+    returned = parseFloat($("#returned").val());
+    discount = parseFloat($("#discount").val());
     obs = $("#obs").val();
     if (document.getElementById("sale_save").checkValidity()) {
         e.preventDefault();
@@ -349,6 +400,10 @@ $('#sale_save_send').on('click', function(e) {
                 data.push({
                     name: 'returned',
                     value: returned
+                });
+                data.push({
+                    name: 'discount',
+                    value: discount
                 });
                 data.push({
                     name: 'obs',

@@ -19,8 +19,8 @@
             <td><?php echo $r->description ?></td>
             <td><?php echo $r->name ?></td>
             <td><?php echo $r->qty ?></td>
-            <td>$ <?php echo number_format($r->price,1) ?></td>
-            <td>$ <?php echo number_format($r->price*$r->qty,1) ?></td>
+            <td>$ <?php echo number_format($r->price,2) ?></td>
+            <td>$ <?php echo number_format($r->price*$r->qty,2) ?></td>
             <td><?php echo $r->notes ?></td>
         </tr>
         <?php } ?>
