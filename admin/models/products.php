@@ -36,7 +36,7 @@ class Products {
             FROM products_categories
             WHERE 1=1
             $filters
-            ORDER BY name DESC
+            ORDER BY name ASC
             ");
             $stm->execute(array());
             return $stm->fetchAll(PDO::FETCH_OBJ);
