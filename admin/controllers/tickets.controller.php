@@ -24,7 +24,7 @@ class TicketsController{
     $lastday = date('Y-m-t', strtotime($today));
     (!empty($_REQUEST['from'])) ? $filters .= " and a.createdAt  >='" . $_REQUEST['from']."'": $filters .= " and a.createdAt  >= $firstday";
     (!empty($_REQUEST['to'])) ? $filters .= " and a.createdAt <='" . $_REQUEST['to']." 23:59:59'": $filters .= " ";
-    if (in_array(10, $permissions)) {
+    if (in_array(11, $permissions)) {
       require_once 'views/layout/header.php';
       require_once 'views/tickets/index.php';
     } else {
