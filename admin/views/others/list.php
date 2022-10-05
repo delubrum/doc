@@ -13,7 +13,7 @@
         <tr>
             <td><?php echo $r->id ?></td>
             <td><?php echo $r->createdAt ?></td>
-            <td>$ <?php echo number_format($r->price,1) ?></td>
+            <td><?php echo number_format($r->price,1) ?></td>
             <td><?php echo $r->obs ?></td>
             <td><?php echo $r->username ?></td>
         </tr>

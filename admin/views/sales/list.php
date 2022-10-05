@@ -6,9 +6,10 @@
             <th>Productos</th>
             <th>Precio Total</th>
             <th>Descuento</th>
-            <th>Total Pagado</th>
             <th>Efectivo</th>
-            <th>Cambio</th>
+            <th>Tarjeta</th>
+            <th>Tickets</th>
+            <th>Total Pagado</th>
             <th>Observaciones</th>
             <th>Usuario</th>
             <th>Acción</th>
@@ -25,11 +26,12 @@
                 } 
                 ?>
             </td>
-            <td>$ <?php echo number_format($r->cash,2) ?></td>
-            <td>$ <?php echo number_format($r->discount,2) ?></td>
-            <td>$ <?php echo number_format($r->cash-$r->discount,2) ?></td>
-            <td>$ <?php echo number_format($r->cash-$r->discount+$r->returned,2) ?></td>
-            <td>$ <?php echo number_format($r->returned,2) ?></td>
+            <td><?php echo number_format($r->cash+$r->card+$r->ticket,2) ?></td>
+            <td><?php echo $r->discount ?>%</td>
+            <td><?php echo number_format($r->cash,2) ?></td>
+            <td><?php echo number_format($r->card,2) ?></td>
+            <td><?php echo number_format($r->ticket,2) ?></td>
+            <td><?php echo number_format($r->cash+$r->card+$r->ticket-(($r->cash+$r->card+$r->ticket) * $r->discount/100),2) ?></td>
             <td>
                 <?php echo $r->obs ?> 
                 <?php if ($r->cancelledAt) {

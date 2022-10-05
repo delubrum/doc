@@ -108,10 +108,12 @@ class Sales {
         }
     }
 
-    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount) {
+    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice) {
         try {
-            $sql = "INSERT INTO sales (cash,obs,userId,returned,discount) VALUES (
+            $sql = "INSERT INTO sales (cash,card,ticket,obs,userId,returned,discount) VALUES (
                 '$total_price',
+                '$card',
+                '$total_cupons',
                 '$obs',
                 '$userId',
                 '$returned',
@@ -129,6 +131,18 @@ class Sales {
             $sql = "INSERT INTO sales_detail (saleId,productId,qty,price) VALUES";
 			foreach($productId as $k => $r){
 				$sql.="('$lastId','$r','$qty[$k]','$price[$k]'),";
+			}
+			$sql=rtrim($sql,',');
+			$this->pdo->prepare($sql)->execute();
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }   
+
+        try {
+            $sql = "INSERT INTO tickets_detail (saleId,ticketId,price) VALUES";
+			foreach($cupons as $k => $r){
+				$sql.="('$lastId','$r','$cuponsPrice[$k]'),";
 			}
 			$sql=rtrim($sql,',');
 			$this->pdo->prepare($sql)->execute();

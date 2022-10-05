@@ -46,30 +46,15 @@ class Products {
         }
     }
 
-    public function getByCategory($id) {
+    public function search($id) {
         try {
-        $stm = $this->pdo->prepare("SELECT a.*
+        $stm = $this->pdo->prepare("SELECT a.*, LPAD(a.id,7,'0') as code
         FROM products a
-        WHERE categoryId = $id
+        WHERE LPAD(a.id,7,'0') = ?
         and active = 1
         ORDER BY id ASC");
-        $stm->execute();
-        return $stm->fetchAll(PDO::FETCH_OBJ);
-        }
-        catch (Exception $e) {
-        die($e->getMessage());
-        }
-    }
-
-    public function search($description) {
-        try {
-        $stm = $this->pdo->prepare("SELECT a.*
-        FROM products a
-        WHERE description like ? 
-        and active = 1
-        ORDER BY id ASC");
-        $stm->execute(array("%$description%"));
-        return $stm->fetchAll(PDO::FETCH_OBJ);
+        $stm->execute(array($id));
+        return $stm->fetch(PDO::FETCH_OBJ);
         }
         catch (Exception $e) {
         die($e->getMessage());

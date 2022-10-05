@@ -26,7 +26,7 @@
                                                 class="nav-icon fas fa-dollar-sign"></i></span>
                                     </div>
                                     <input id="amount"
-                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 0, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                        data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 0, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
                                         class="form-control" name="amount" placeholder="0" required>
                                 </div>
                             </div>

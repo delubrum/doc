@@ -12,107 +12,24 @@
     </div>
     <div class="modal-body">
             <div class="row">
-                        <div class="col-5">
-
-                            <input style="padding:5px;width:98%" placeholder="Buscar..." id="product_search" autofocus>
-                            <select id="category" style="padding:5px;width:98%;margin-top:5px">
-                                <option value=''>Categoria...</option>
-                                <?php foreach($this->products->listCategory() as $r) {
-				                echo "<option value='$r->id'>$r->name</option>";
-			                };
-			                ?>
-                            </select>
-                            <div id="products" class="pt-2"></div>
+                        <div class="col-12">
+                            <input style="padding:5px;width:98%" placeholder="Buscar..." id="product_search">
                         </div>
-                        <div class="col-7">
+                        <div class="col-12 mt-3">
                             <div id="items">
                             </div>
                             <div class="row p-1 mt-1">
                                 <div class="col-6 font-weight-bold text-right">
                                     TOTAL:
                                 </div>
-                                <div id="total" class="col-6 font-weight-bold text-right">$ 0</div>
+                                <div id="total" class="col-6 font-weight-bold text-right">€ 0</div>
 
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" data-toggle='modal' data-target='#sell' class="btn btn-primary">Registrar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="qty_price" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <form method="post" id="product_add">
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Cantidad (En Inventario: <span id="iqty" class="text-primary"></span>)</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="nav-icon fas fa-hashtag"></i></span>
-                                    </div>
-                                    <input type="number" id="qty" class="form-control" pattern="\d*" required autofocus>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Precio</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i
-                                                class="nav-icon fas fa-dollar-sign"></i></span>
-                                    </div>
-                                    <input id="price"
-                                        data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                        class="form-control" placeholder="0" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Descripción</label>
-                                <div class="input-group">
-                                    <input class="form-control" id="name" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Talla</label>
-                                <div class="input-group">
-                                    <input class="form-control" id="size" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label>* Color</label>
-                                <div class="input-group">
-                                    <input class="form-control" id="color" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <input type="hidden" id="productId">
-                        <input type="hidden" id="description">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Añadir</button>
+                    <button type="button" data-toggle='modal' data-target='#sell' onclick='Pay()' class="btn btn-primary">Registrar</button>
                 </div>
             </form>
         </div>
@@ -120,83 +37,111 @@
 </div>
 
 <div class="modal fade" id="sell" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form method="post" id="product_add">
                 <div class="modal-body">
                     <div class="row" id="payment_info">
-
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>* Descuento</label>
+                                    <label>* Descuento (%)</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i
-                                                    class="nav-icon fas fa-dollar-sign"></i></span>
-                                        </div>
-                                        <input id="discount"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control" value="0" required>
+                                        <input id="discount" type="number" class="form-control text-right" value="0" required>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-sm-12">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>* Total A Pagar</label>
+                                    <div class="input-group">
+                                        <input class="form-control text-right" id="payTotal" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>* Forma de Pago</label>
+                                    <div class="input-group">
+                                        <select class="form-control" id="payType">
+                                            <option value=""></option>
+                                            <option value="1">Efectivo</option>
+                                            <option value="2">Tarjeta</option>
+                                            <option value="3">Cupones</option>
+                                            <option value="4">Efectivo + Tarjeta</option>
+                                            <option value="5">Efectivo + Cupones</option>
+                                            <option value="6">Tarjeta + Cupones</option>
+                                            <option value="7">Efectivo + Tarjeta + Cupones</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>* Efectivo</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i
-                                                    class="nav-icon fas fa-dollar-sign"></i></span>
-                                        </div>
-                                        <input id="payment"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control" value="0" required>
+                                        <input id="cash"
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                            class="form-control" value="0" readonly>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label>* Número Ticket</label>
+                                    <label>* Tarjeta</label>
                                     <div class="input-group">
-                                        <input type="number" id="ticketCode" class="form-control" id="price">
-                                    </div>
-                                </div>
-                            </div> -->
-
-                            <!-- <div class="col-sm-5">
-                                <div class="form-group">
-                                    <label>* Ticket <span class="h3 text-primary" id='ticketPrice'></span></label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i
-                                                    class="nav-icon fas fa-dollar-sign"></i></span>
-                                        </div>
-                                        <input disabled id="ticket"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
-                                            class="form-control" id="tickePrice" placeholder="0" value='0' required>
+                                        <input id="card"
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                            class="form-control" value="0" readonly>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="col-sm-1">
+                            <div class="col-sm-4">
                                 <div class="form-group">
-                                    <label></label>
-                                    <div class="input-group mt-1">
-                                        <button class="btn btn-primary mt-4"><i class="nav-icon fas fa-plus"></i></button>
+                                    <label>Cupón</label>
+                                    <div class="input-group">
+                                        <button type="button" data-toggle='modal' data-target='#cuponCode' class="btn btn-primary float-right col-12" id="addCupon" disabled>
+                                            <i class="fas fa-plus"></i> Agregar
+                                        </button>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
+
+                            <div class="col-sm-12 row" id="cupones">
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>* Total Cupones</label>
+                                    <div class="input-group">
+                                        <input class="form-control text-right" id="cuponTotal" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>* Total Pagado</label>
+                                    <div class="input-group">
+                                        <input class="form-control text-right" id="payedTotal" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>* Diferencia</label>
+                                    <div class="input-group">
+                                        <input class="form-control text-right" id="diference" readonly>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group">
                                     <label>* Cambio</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i
-                                                    class="nav-icon fas fa-dollar-sign"></i></span>
-                                        </div>
                                         <input class="form-control text-right" id="returned" readonly>
                                     </div>
                                 </div>
@@ -221,133 +166,119 @@
 </div>
 
 
+<div class="modal fade" id="cuponCode" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <form method="post" id="findCupon">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>* Codigo</label>
+                                <div class="input-group">
+                                    <input type="number" id="cuponId" class="form-control" pattern="\d*" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script>
-// $(document).on('blur', '#ticketCode', function() {
-//     id = $(this).val();
-//     $.post( "?c=Tickets&a=Get", { id }).done(function( res ) {
-//         var res = $.parseJSON(res);
-//         if (res.price) {
-//             $('#ticketPrice').html('$ ' + res.price);
-//             $("#ticket").prop("disabled",false);
-//         } else {
-//             $("#ticket").prop("disabled",true);
-//             $("#ticket").val(0);
-//             $('#ticketPrice').html('');
-//         }
-//     });
-// });
 
-$(document).ready(function() {
-    $(":input").inputmask();
+$(document).on("click", "#addCupon", function() { 
+    setTimeout(function() { $('#cuponId').focus() }, 300);
 });
 
-$(document).on('change', '#category', function() {
-    $('#product_search').val('');
-    id = $(this).children("option:selected").val()
-    $.post("?c=Products&a=ByCategory", {
-        id: id
-    }, function(data) {
-        $("#products").html(data);
-    });
+$(document).on("blur", "#cuponId", function(e) {
+    $('#cuponId').val('');
 });
 
-$(document).on('input', '#payment,#discount', function() {
-    total = parseFloat($('#total').html().replace(/\D/g, '')/100);
-    payment = parseFloat($('#payment').val());
-    discount = parseFloat($('#discount').val());
-    returned = payment-total+discount;
-    $('#returned').val(returned.toFixed(2));
-});
-
-$(document).on('input', '#product_search', function() {
-    $('#category').val('');
-    description = $(this).val();
-    $.post("?c=Products&a=Search", {
-        description: description
-    }, function(data) {
-        $("#products").html(data);
-    });
-});
-
-$(document).on("click", "#product", function() {
-    id = $(this).data('id');
-    price = $(this).data('price');
-    name = $(this).data('description');
-    size = $(this).data('size');
-    color = $(this).data('color');
-    qty = $(this).data('qty');
-    aqty = $("#qty_input" + id).val();
-    if (!aqty) {aqty = 0}
-    description = $(this).html();
-    $("#qty_price #iqty").html(qty - aqty);
-    $("#qty_price #productId").val(id);
-    $("#qty_price #price").val(price);
-    $("#qty_price #name").val(name);
-    $("#qty_price #size").val(size);
-    $("#qty_price #color").val(color);
-    $("#qty_price #description").val(description);
-    $(":input").inputmask();
-});
 
 function Total(){
     sum = 0;
-    $('[name^=price]').each(function() {
+    $('.productTotal').each(function() {
         sum += parseFloat($(this).val());
     });
-    $("#total").html('$ ' + sum.toFixed(2).replace(
-        /(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,"));
+    $("#total").html(sum.toFixed(2));
 }
 
-$(document).on("submit", "#product_add", function(e) {
-    if (document.getElementById("product_add").checkValidity()) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        id = $('#productId').val();
-        description = $('#description').val();
-        price = $('#price').val();
-        qty = $('#qty').val();
-        iqty = parseInt($('#qty_price #iqty').html());
-        pricetotal = parseFloat(price) * parseInt(qty);
-
-        if (qty > iqty) {
-            toastr.error('No hay suficiente en inventario');
-            return;       
-        }
-        div = `
-        <div class="row p-1 bg-light removediv" id="product${id}">
-            <div class="col-1">
-                <span style="cursor:pointer" class="h5 text-danger btx">&times;</span>
-            </div>
-            <div class="col-6">
-                ${description} x <span id="qty_show${id}">${qty}</span>
-            </div>
-            <div class="col-5 text-right font-weight-bold" id="price_show${id}">
-                $ ${pricetotal.toFixed(2).replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,")}
-            </div>
-            <input id="productId_input${id}" type="hidden" name="productId[]" value="${id}">
-            <input id="qty_input${id}" type="hidden" name="qty[]" value="${qty}">
-            <input id="price_input${id}" type="hidden" name="price[]" value="${pricetotal}">
-        </div>
-        `;
-
-        if ($("#product" + id).length == 0) {
-            $('#items').append(div);
-        } else {
-            old_price = ($("#price_input" + id).val());
-            new_price = parseFloat(old_price) + (parseFloat(price) * parseInt(qty));
-            old_qty = $("#qty_input" + id).val();
-            new_qty = parseInt(old_qty) + parseInt(qty);
-            $("#price_input" + id).val(new_price);
-            $("#price_show" + id).html('$ ' + new_price.toFixed(2).replace(
-                /(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,"));
-            $("#qty_input" + id).val(new_qty);
-            $("#qty_show" + id).html(new_qty);
-        }
-        $('#qty').val('');
-        $('#qty_price').modal('toggle');
-        Total();
+$(document).on("input", ".pqty", function(e) {
+    iqty = $(this).data('iqty');
+    price = $(this).data('price');
+    val = $(this).val();
+    total = price*val;
+    if(iqty < val) {
+    toastr.error('la cantidad ingresada es mayor a la disponible');
+    $(this).val(1);
+        $(this).closest('.removediv').find('.productTotal').val(price.toFixed(2));
+    $(this).focus();
+    } else {
+        $(this).closest('.removediv').find('.productTotal').val(total.toFixed(2));
     }
+    Total()
 });
+
+$(document).on("input", ".qtyCupon", function(e) {
+    price = $(this).data('price');
+    val = $(this).val()
+    if(price < val) {
+    toastr.error('la cantidad ingresada es mayor a la disponible');
+    $(this).val(0);
+    $(this).focus();
+    }
+    Calc()
+});
+
+$(document).on("keydown", "form", function(event) { 
+    return event.key != "Enter";
+});
+
+function Calc() {
+    var cuponPrice = $("input[name='cuponPrice[]']").map(function(){return $(this).val();}).get();
+    price = cuponPrice.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
+    total = parseFloat($('#total').html());
+    discount = parseFloat($('#discount').val());
+    payTotal = (total - (total * (discount/100))).toFixed(2);
+    $('#payTotal').val(payTotal);
+    cash = parseFloat($('#cash').val());
+    card = parseFloat($('#card').val());
+    returned = cash-payTotal;
+    payedTotal = cash+card+price;
+    diference = payTotal-payedTotal;
+    $('#cuponTotal').val(price.toFixed(2));
+    $('#payedTotal').val(payedTotal.toFixed(2));
+    $('#diference').val((diference).toFixed(2));
+    if(diference != 0) { $('#diference').css("background-color", "red");}
+    if(diference == 0) { $('#diference').css("background-color", "#69c58d");}
+    if ($('#payType').val() == 2) {
+        $('#card').val($('#payTotal').val());
+    }
+    if ($('#payType').val() == 1) {
+        $('#returned').val(returned.toFixed(2));
+    } else {
+        $('#returned').val(0);
+    }
+}
+
+$(document).on('input', '#cash,#card,#discount', function() {
+    Calc();
+});
+
+function Pay() {
+    total = parseFloat($('#total').html());
+    $('#payTotal').val(total);
+    $('#discount').val(0);
+    $('#cash').val(0);
+    $('#card').val(0);
+    $('#cupon').val(0);
+    $('#returned').val(0);
+    $(":input").inputmask();
+}
 
 $(document).on('click', '.btx', function() {
     Swal.fire({
@@ -365,20 +296,130 @@ $(document).on('click', '.btx', function() {
     })
 });
 
-$('#product_add').on('submit', function(e) {
-    if (document.getElementById("product_add").checkValidity()) {
-        e.preventDefault();
-        $.post("?c=Init&a=SaleSave", $("#product_add").serialize(), function(data) {
-
-        });
+$(document).on("input", "#cuponId", function(e) {
+    var values = $("input[name='cuponId[]']").map(function(){return $(this).val();}).get();
+    if($(this).val().length < 7 ) {
+        return
     }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    id = $('#cuponId').val();
+    $.post( "?c=Tickets&a=Get", { id }).done(function( res ) {
+        var res = $.parseJSON(res);
+        if (res.status != 'ok') {
+        toastr.error(res.status);
+        return;       
+        }
+        if (values.includes(res.id)) {
+        toastr.error('El código ya fue agregado');
+        return;       
+        }
+        div = `
+        <div class="col-sm-12 row removediv">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Código</label>
+                    <div class="input-group">
+                        ${res.code}
+                        <input type="hidden" name="cuponId[]" value="${res.id}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label>Disponible</label>
+                    <div class="input-group">
+                        ${res.price}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>* Cantidad a Usar</label>
+                    <div class="input-group">
+                        <input data-price='${res.price}'
+                            data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                            class="form-control form-control-sm qtyCupon" name="cuponPrice[]" value="0" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-1">
+                <div class="form-group mt-1">
+                    <button type="button" class="btn btn-danger btx mt-4 float-right"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        </div>
+        `;
+        $("#cupones").append(div);
+        $('#cuponCode').modal('toggle');
+        $('#cuponId').val('');
+        $(":input").inputmask();
+        Calc()
+    });
+});
+
+$(document).on('input', '#product_search', function(e) {
+    var products = $("input[name='productId[]']").map(function(){return $(this).val();}).get();
+    if($(this).val().length < 7 ) {
+        return
+    }
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    id = $(this).val();
+    $.post("?c=Products&a=Search", {id}, function(res) {
+        var res = $.parseJSON(res);
+        if (res.status != 'ok') {
+        toastr.error(res.status);
+        return;       
+        }
+        if (products.includes(res.id)) {
+        toastr.error('El producto ya fue agregado');
+        return;       
+        }
+        div = `
+        <div class="row p-1 bg-light removediv">
+            <div class="col-1">
+                <span style="cursor:pointer" class="h5 text-danger btx">&times;</span>
+            </div>
+            <div class="col-5" title="Talla:${res.size}\nColor:${res.color}\nPrecio:${res.price}">
+                <input type="hidden" name="productId[]" value="${res.id}">
+                ${res.code} / ${res.description} [En inventario: <b>${res.qty}</b>]
+            </div>
+            <div class="col-1" title="Código: ${res.code} /n ">
+                <input style="width:60px" type="number" min='1' step='1' class="pqty" name="qty[]" data-price='${res.price}' data-iqty='${res.qty}' value='1'>
+            </div>
+            <div class="col-5 text-right font-weight-bold">
+                <div class="input-group">
+                    <input value='${res.price}'
+                        data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                        class="form-control form-control-sm productTotal text-right" name="price[]" style="width:100px !important;border:none;background:none;font-weight:bold" readonly>
+                </div>
+            </div>
+        </div>
+        `;
+        $(":input").inputmask();
+        $('#product_search').val('');
+        $('#product_search').focus();
+        $('#items').append(div);
+        setTimeout(function() { Total(); }, 200);
+    });
 });
 
 $('#sale_save_send').on('click', function(e) {
-    total = $('#total').html().replace(/\D/g, '')/100;
-    payment = parseFloat($('#payment').val());
-    if (payment < total) {
-        toastr.error('La cantidad ingresada no cubre el valor total');
+    var cuponPrice = $("input[name='cuponPrice[]']").map(function(){return $(this).val();}).get();
+    var cupons = $("input[name='cuponId[]']").map(function(){return $(this).val();}).get();
+    payTotal = $('#payTotal').val();
+    cash = parseFloat($('#cash').val());
+    card = parseFloat($('#card').val());
+    if (payTotal == 0) {
+        toastr.error('No ha ingresado ningún producto');
+        return;       
+    }
+    if ($('#diference').val() != 0) {
+        toastr.error('La cantidad ingresada no corresponde al valor total');
         return;       
     }
     returned = parseFloat($("#returned").val());
@@ -409,13 +450,117 @@ $('#sale_save_send').on('click', function(e) {
                     name: 'obs',
                     value: obs
                 });
+                data.push({
+                    name: 'cupons',
+                    value: cupons
+                });
+                data.push({
+                    name: 'cuponPrice',
+                    value: cuponPrice
+                });
+                data.push({
+                    name: 'card',
+                    value: card
+                });
+                data.push({
+                    name: 'cash',
+                    value: cash
+                });
                 $.post("?c=Sales&a=Save", data, function(data) {
                     id = data.trim();
-                    window.open("http://localhost/curuba/admin/?c=Sales&a=Detail&id=" + id);
+                    window.open("http://aei-sigma.com/curuba/admin/?c=Sales&a=Detail&id=" + id);
                     location.reload();
                 });
             }
         })
     }
+});
+
+$(document).on("change", "#payType", function(e) {
+    if ($(this).val() == 1) {
+        $('#cash').prop('readonly', false);
+        $('#cash').prop('required', true);
+
+        $('#card').prop('readonly', true);
+        $('#card').prop('required', false);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', true);
+
+        $('#cupones').html('');
+    }
+    if ($(this).val() == 2) {
+        $('#cash').prop('readonly', true);
+        $('#cash').prop('required', false);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', true);
+        $('#card').prop('required', true);
+        $('#card').val($('#payTotal').val());
+
+        $('#addCupon').prop('disabled', true);
+
+        $('#cupones').html('');
+    }
+    if ($(this).val() == 3) {
+        $('#cash').prop('readonly', true);
+        $('#cash').prop('required', false);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', true);
+        $('#card').prop('required', false);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', false);
+    }
+
+    if ($(this).val() == 4) {
+        $('#cash').prop('readonly', false);
+        $('#cash').prop('required', true);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', false);
+        $('#card').prop('required', true);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', true);
+
+        $('#cupones').html('');
+    }
+    if ($(this).val() == 5) {
+        $('#cash').prop('readonly', false);
+        $('#cash').prop('required', true);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', true);
+        $('#card').prop('required', false);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', false);
+    }
+    if ($(this).val() == 6) {
+        $('#cash').prop('readonly', true);
+        $('#cash').prop('required', false);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', false);
+        $('#card').prop('required', true);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', false);
+    }
+    if ($(this).val() == 7) {
+        $('#cash').prop('readonly', false);
+        $('#cash').prop('required', true);
+        $('#cash').val(0);
+
+        $('#card').prop('readonly', false);
+        $('#card').prop('required', true);
+        $('#card').val(0);
+
+        $('#addCupon').prop('disabled', false);
+    }
+    $(":input").inputmask();
+    Calc();
 });
 </script>

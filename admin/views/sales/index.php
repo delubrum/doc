@@ -89,6 +89,7 @@ $(document).on('click', '.new', function(e) {
     $.post( "?c=Sales&a=New", { id }).done(function( data ) {
         $('#xlModal').modal('toggle');
         $('#xlModal .modal-content').html(data);
+        setTimeout(function() { $('#product_search').focus() }, 200);
     });
 });
 

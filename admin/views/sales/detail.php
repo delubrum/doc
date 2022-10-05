@@ -8,7 +8,7 @@
         <title>Curuba</title>
         <style>
             * {
-                font-size: 12px;
+                font-size: 10px;
                 font-family: 'Times New Roman';
             }
 
@@ -22,22 +22,21 @@
 
             td.description,
             th.description {
-                width: 75px;
-                max-width: 75px;
+                text-align:right;
             }
 
             td.quantity,
             th.quantity {
-                width: 40px;
-                max-width: 40px;
+                width: 5px;
+                max-width: 5px;
                 word-break: break-all;
-                text-align: left;
+                text-align: right;
             }
 
             td.price,
             th.price {
-                width: 40px;
-                max-width: 40px;
+                width: 60px;
+                max-width: 60px;
                 word-break: break-all;
                 text-align: right;
             }
@@ -49,13 +48,22 @@
             }
 
             .ticket {
-                width: 155px;
-                max-width: 155px;
+                width: 250px;
+                max-width: 250px;
             }
 
             img {
                 max-width: inherit;
                 width: inherit;
+            }
+
+            .text-right {
+                border: none;
+                text-align:right;
+            }
+
+            .noborder {
+                border: none;
             }
 
             @media print {
@@ -68,7 +76,7 @@
     </head>
     <body>
         <div class="ticket">
-            <img src="assets/img/logo.jpg" alt="Logo">
+            <img src="assets/img/logoprint.png" alt="Logo">
             <p class="centered">
                 <br>Calle Capitan Arenas 58
                 <br>Barcelona España
@@ -78,12 +86,12 @@
                 <br><b>Nro: <?php echo $id->id ?></b>
             </p>
             <br>
-            <table>
+            <table style="width:100%">
                 <thead>
                     <tr>
-                        <th >Uds</th>
-                        <th>Descripcion</th>
-                        <th>$</th>
+                        <th style="text-align:center">Uds</th>
+                        <th style="text-align:center">Descripcion</th>
+                        <th style="text-align:center">€</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,13 +102,25 @@
                         <td class="price"><?php echo $r->price ?></td>
                     </tr>
                     <?php } ?>
-                    <tr>
-                        <th colspan="2">DESCUENTO</th>
-                        <td class="price"><?php echo $id->discount ?></td>
+
+
+
+                    <tr class="noborder"><th class="noborder" style="padding:5px"></tr>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right noborder">DESCUENTO: </th>
+                        <td class="price noborder"><?php echo $id->discount ?></td>
                     </tr>
-                    <tr>
-                        <th colspan="2">TOTAL</th>
-                        <td class="price"><?php echo $id->cash-$id->discount ?></td>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right">BASE: </th>
+                        <td class="price noborder"><?php $iva = ($id->cash-$id->discount/1.21); echo number_format($iva,2) ?></td>
+                    </tr>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right">IVA: </th>
+                        <td class="price noborder"><?php $total = ($id->cash-$id->discount); echo number_format($total-$iva,2) ?></td>
+                    </tr>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right">TOTAL: </th>
+                        <td class="price noborder"><?php echo number_format($total,2) ?></td>
                     </tr>
                 </tbody>
             </table>

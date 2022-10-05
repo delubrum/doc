@@ -46,12 +46,8 @@
                                 <div class="form-group">
                                     <label>Apertura de caja, ingrese el monto:</label>
                                     <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i
-                                                    class="nav-icon fas fa-archive"></i></span>
-                                        </div>
                                         <input id="amount"
-                                            data-inputmask="'alias': 'numeric', 'groupSeparator': ',', 'digits': 1, 'digitsOptional': false, 'prefix': ' ', 'placeholder': '0'"
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 1, 'digitsOptional': false, 'prefix': ' ', 'placeholder': '0'"
                                             class="form-control" name="amount" placeholder="0" required>
                                     </div>
                                 </div>

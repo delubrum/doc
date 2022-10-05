@@ -59,39 +59,25 @@ class ProductsController{
     ? $this->init->save($table,$item)
     : $this->init->update($table,$item,$_POST['id']);
   }
-
-
-  public function ByCategory(){
-    if  (!empty($_REQUEST["id"])) {
-    foreach($this->products->getByCategory($_REQUEST["id"]) as $r) {
-      $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
-      $size = mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8");
-      $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
-      $price = $r->price;
-      $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
-      if ($qty > 0) {
-        echo "<button id='product' data-id='$r->id' data-description='$description' data-price='$r->price' data-qty='$qty' data-size='$size' data-color='$color' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description / $size / $color / $$price</button>";
-      } else {
-        echo "<button type='button' class='btn btn-block bg-danger'>$description / $size / $color / $$price</button>"; 
-      }
-      }
-    }
-  }
   
   public function Search(){
-    if  (!empty($_POST["description"])) {
-    foreach($this->products->search($_POST["description"]) as $r) {
+    $status = 'ok';
+    if  (!empty($_REQUEST["id"])) {
+      $r = $this->products->search($_REQUEST["id"]);
+      $id = $_REQUEST["id"];
+      $code = $r->code;
       $description = mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8");
       $size = mb_convert_case($r->size, MB_CASE_UPPER, "UTF-8");
       $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
       $price = $r->price;
       $qty = $this->purchases->getQty($r->id)->total - $this->sales->getQty($r->id)->total;
-      if ($qty > 0) {
-        echo "<button id='product' data-id='$r->id' data-description='$description' data-price='$r->price' data-qty='$qty' data-size='$size' data-color='$color' type='button' class='btn btn-block bg-gradient-info' data-toggle='modal' data-target='#qty_price'>$description / $size / $color / $$price</button>";
-      } else {
-        echo "<button type='button' class='btn btn-block bg-danger'>$description / $size / $color / $$price</button>"; 
-      }  
-    }
+      if ($qty <= 0) {
+        $status = 'No hay en inventario';
+      }
+      echo json_encode(array("id" => $id,"code" => $code,"price" => $price,"size" => $size,"color" => $color,"qty" => $qty,"description" => $description,"status" => $status));
+    } else {
+      $status = 'El producto no éxiste o está desactivado';
+      echo json_encode(array("status" => $status));
     }
   }
 

@@ -52,11 +52,19 @@ class TicketsController{
   }
 
   public function Get(){
-    if  ($_REQUEST["id"] and $this->tickets->get($_REQUEST["id"])) {
-        $price = $this->tickets->get($_REQUEST["id"])->price;
-        echo json_encode(array("price" => $price));
+    $status = 'ok';
+    if  ($this->tickets->get($_REQUEST["id"])) {
+      $id = $this->tickets->get($_REQUEST["id"])->id;
+      $code = $_REQUEST["id"];
+
+      $price = $this->tickets->get($_REQUEST["id"])->price - $this->tickets->sumPrice($_REQUEST["id"])->total;
+      if ($price <= 0) {
+        $status = 'El cupón no posee fondos';
+      }
+      echo json_encode(array("id" => $id,"code" => $code,"price" => $price,"status" => $status));
     } else {
-      echo 0;
+      $status = 'El cupón no éxiste';
+      echo json_encode(array("status" => $status));
     }
   }
 

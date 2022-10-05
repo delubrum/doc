@@ -32,12 +32,26 @@ class Tickets {
         try {
             $stm = $this->pdo->prepare("SELECT *
             FROM tickets
-            WHERE id = $id
+            WHERE LPAD(id,7,'0') = '$id'           
             AND expiresAt >= CURDATE()
             ");
-            $stm->execute(array($id));
+            $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
         } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function sumPrice($id){
+        try {
+            $stm = $this->pdo->prepare("SELECT sum(price) as total
+            FROM tickets_detail 
+            WHERE ticketId = $id
+            ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
             die($e->getMessage());
         }
     }

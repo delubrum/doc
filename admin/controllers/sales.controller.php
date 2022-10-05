@@ -48,9 +48,14 @@ class SalesController{
     $price=$_REQUEST['price'];
     $returned=$_REQUEST['returned'];
     $discount=$_REQUEST['discount'];
-    $total_price=array_sum($price);
-    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount);
+    $cupons=explode(",",$_REQUEST['cupons']);
+    $cuponsPrice=explode(",",$_REQUEST['cuponPrice']);;
+    $card=$_REQUEST['card'];
+    $total_price=$_REQUEST['cash'];
+    $total_cupons=array_sum($cuponsPrice);
+    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice);
     echo $id;
+
   }
 
   public function Refund(){
@@ -70,15 +75,8 @@ class SalesController{
   }
 
   public function Detail(){
-    require_once "middlewares/check.php";
-    $user = $this->users->UserGet($_SESSION["id-CRB"]);
-    $permissions = json_decode($this->users->permissionsGet($_SESSION["id-CRB"])->permissions, true);
     $id = $this->sales->getId($_REQUEST['id']);
-    if (in_array(8, $permissions)) {
       require_once 'views/sales/detail.php';
-    } else {
-      $this->init->redirect();
-    }
   }
 
 }
