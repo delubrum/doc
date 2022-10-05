@@ -48,8 +48,8 @@ $(document).ready(function() {
 $(".new").on("click", function() {
     id = $(this).data('id');
     $.post( "?c=Products&a=New", { id }).done(function( data ) {
-        $('#xsModal').modal('toggle');
-        $('#xsModal .modal-content').html(data);
+        $('#lgModal').modal('toggle');
+        $('#lgModal .modal-content').html(data);
     });
 });
 

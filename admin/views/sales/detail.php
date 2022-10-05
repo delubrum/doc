@@ -98,29 +98,38 @@
                     <?php foreach($this->sales->listDetail($id->id) as $r ) {?>
                     <tr>
                         <td class="quantity"><?php echo $r->qty ?></td>
-                        <td class="description"><?php echo $r->description ?></td>
+                        <td class="description"><?php echo  mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8") ?></td>
                         <td class="price"><?php echo $r->price ?></td>
                     </tr>
                     <?php } ?>
 
 
+                    <?php
+                    $total = $id->cash+$id->card+$id->ticket; 
+                    $discount = (($id->cash+$id->card+$id->ticket) * $id->discount/100); 
+                    $iva = ($total-$discount)/1.21 ;
+                    $base = ($total-$discount-$iva)
+
+
+                    ?>
+
 
                     <tr class="noborder"><th class="noborder" style="padding:5px"></tr>
                     <tr class="noborder">
-                        <th colspan="2" class="text-right noborder">DESCUENTO: </th>
-                        <td class="price noborder"><?php echo $id->discount ?></td>
+                        <th colspan="2" class="text-right noborder">TOTAL: </th>
+                        <td class="price noborder"><?php echo number_format($total,2) ?></td>
+                    </tr>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right noborder">TOTAL CON DESCUENTO (<?php echo $id->discount?>%): </th>
+                        <td class="price noborder"><b><?php echo number_format($total-$discount,2) ?></b></td>
+                    </tr>
+                    <tr class="noborder">
+                        <th colspan="2" class="text-right">IVA (21%): </th>
+                        <td class="price noborder"><?php  echo number_format($base,2) ?></td>
                     </tr>
                     <tr class="noborder">
                         <th colspan="2" class="text-right">BASE: </th>
-                        <td class="price noborder"><?php $iva = ($id->cash-$id->discount/1.21); echo number_format($iva,2) ?></td>
-                    </tr>
-                    <tr class="noborder">
-                        <th colspan="2" class="text-right">IVA: </th>
-                        <td class="price noborder"><?php $total = ($id->cash-$id->discount); echo number_format($total-$iva,2) ?></td>
-                    </tr>
-                    <tr class="noborder">
-                        <th colspan="2" class="text-right">TOTAL: </th>
-                        <td class="price noborder"><?php echo number_format($total,2) ?></td>
+                        <td class="price noborder"><?php echo number_format($iva,2) ?></td>
                     </tr>
                 </tbody>
             </table>

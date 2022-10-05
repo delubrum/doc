@@ -11,7 +11,7 @@
     </div>
     <div class="modal-body">
             <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>* Categoría</label>
                                 <div class="input-group">
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>* Descripción</label>
                                 <div class="input-group">
@@ -35,7 +35,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>* Talla</label>
                                 <div class="input-group">
@@ -44,7 +44,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <label>* Color</label>
                                 <div class="input-group">
@@ -52,7 +52,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12">
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>* Año</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="number" min="1900" max="2099" step="1" name="year">                            
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>* Temporada</label>
+                                <div class="input-group">
+                                    <select class="form-control" name="season" required>
+                                        <option value=''></option>
+                                        <option value='Primavera / Verano'>Primavera / Verano</option>
+                                        <option value='Otoño / Invierno'>Otoño / Invierno</option>
+                                    </select>                                
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label>* Precio de Venta</label>
                                 <div class="input-group">
