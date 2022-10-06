@@ -22,7 +22,7 @@
             <td><?php echo $r->createdAt ?></td>
             <td>
                 <?php foreach($this->sales->listDetail($r->id) as $b) {
-                    echo mb_convert_case($r->description, MB_CASE_TITLE, "UTF-8") . " x " . $b->qty . "<br>";
+                    echo mb_convert_case($b->description, MB_CASE_TITLE, "UTF-8") . " x " . $b->qty . "<br>";
                 } 
                 ?>
             </td>
