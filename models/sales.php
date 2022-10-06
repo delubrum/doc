@@ -106,9 +106,10 @@ class Sales {
         }
     }
 
-    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal) {
+    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal,$payTotal) {
         try {
-            $sql = "INSERT INTO sales (cash,card,ticket,obs,userId,returned,discount,cashReal) VALUES (
+            $sql = "INSERT INTO sales (total,cash,card,ticket,obs,userId,returned,discount,cashReal) VALUES (
+                '$payTotal',
                 '$total_price',
                 '$card',
                 '$total_cupons',
@@ -151,6 +152,39 @@ class Sales {
         }   
         
         return $lastId;
+    }
+
+
+    public function refundSave($saleId,$cause,$userId,$refund){
+        try {
+            $sql = "INSERT INTO refunds (saleId,cause,userId) VALUES (
+            '$saleId',
+            '$cause',
+            '$userId'
+            )";
+			$this->pdo->prepare($sql)->execute();
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+
+        $lastId = $this->pdo->lastInsertId();
+
+        try {
+            $sql = "INSERT INTO refunds_detail (refundId,productId,price,qty) VALUES";
+            foreach($refund as $k => $v) {
+                $sql.="('$lastId','$k',";
+                foreach($v as $ke => $va) {
+                    $sql.="'$ke',";
+                    $sql.="'$va'),";
+                }
+            }
+			$sql=rtrim($sql,',');
+			$this->pdo->prepare($sql)->execute();
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
     }
 
 

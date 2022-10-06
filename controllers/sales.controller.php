@@ -53,8 +53,9 @@ class SalesController{
     $card=$_REQUEST['card'];
     $total_price=$_REQUEST['cash'];
     $cashReal=$_REQUEST['cashReal'];
+    $payTotal=$_REQUEST['payTotal'];
     $total_cupons=array_sum($cuponsPrice);
-    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal);
+    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal,$payTotal);
     echo $id;
 
   }
@@ -66,18 +67,11 @@ class SalesController{
 
   public function RefundSave(){
     require_once "middlewares/check.php";
-    $item = new stdClass();
-    $item->userId = $_SESSION["id-CRB"];
-    $table = 'refunds';
-    foreach($_POST as $k => $val) {
-      if (!empty($val)) {
-        if($k != 'id') {
-          $item->{$k} = $val;
-        }
-      }
-    }
-    $this->init->save($table,$item);
-    $this->sales->refund($_REQUEST['saleId']);
+    $userId = $_SESSION["id-CRB"];
+    $saleId = $_REQUEST['saleId'];
+    $cause = $_REQUEST['cause'];
+    $refund = $_REQUEST['refund'];
+    $this->sales->refundSave($saleId,$cause,$userId,$refund);
   }
 
   public function Detail(){

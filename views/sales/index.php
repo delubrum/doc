@@ -147,7 +147,7 @@ $(document).on('submit', '#Refund_Form', function(e) {
     e.preventDefault();
     if (document.getElementById("Refund_Form").checkValidity()) {
         $("#loading").show();
-        $.post( "?c=Sales&a=Refund", $("#Refund_Form").serialize()).done(function(res) {
+        $.post( "?c=Sales&a=RefundSave", $("#Refund_Form").serialize()).done(function(res) {
             location.reload();
         });
     }

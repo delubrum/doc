@@ -6,8 +6,8 @@
             <th>Productos</th>
             <th>Precio Total</th>
             <th>Descuento</th>
-            <th>Pago</th>
             <th>Total Pagado</th>
+            <th>Forma de Pago</th>
             <th>Observaciones</th>
             <th>Usuario</th>
             <th>Acción</th>
@@ -24,17 +24,16 @@
                 } 
                 ?>
             </td>
-            <td class="text-right"><?php echo number_format($r->cash+$r->card+$r->ticket,2) ?></td>
+            <td class="text-right"><?php echo number_format($r->total,2) ?></td>
             <td class="text-center"><?php echo $r->discount ?>%</td>
+            <td class="text-right"><?php echo number_format($r->total-($r->total*$r->discount/100),2) ?></td>
+
             <td>
                 <?php echo ($r->cash != 0) ? "<b>Efectivo: </b>" . number_format($r->cash,2) . "<br>" : '' ?>
                 <?php echo ($r->card != 0) ? "<b>Tarjeta: </b>" . number_format($r->card,2) . "<br>" : '' ?>
                 <?php echo ($r->ticket != 0) ? "<b>Tickets: </b>" . number_format($r->ticket,2) : '' ?>
             </td>
-            <td class="text-right"><?php echo number_format($r->cash+$r->card+$r->ticket-(($r->cash+$r->card+$r->ticket) * $r->discount/100),2) ?></td>
-            <td>
-                <?php echo $r->obs ?> 
-            </td>
+            <td><?php echo $r->obs ?></td>
             <td><?php echo $r->username ?></td>
             <td class="text-right">
                 <?php if (in_array(12, $permissions)) { ?> <button type="button" class="btn btn-danger refund" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Devolucion"> <i class="fas fa-redo"></i> </button> <?php } ?>

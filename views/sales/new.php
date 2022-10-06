@@ -488,6 +488,10 @@ $(document).on('submit', '#SaleForm', function(e) {
                     name: 'cashReal',
                     value: cashReal
                 });
+                data.push({
+                    name: 'payTotal',
+                    value: payTotal
+                });
                 $.post("?c=Sales&a=Save", data, function(data) {
                     id = data.trim();
                     window.open("http://aei-sigma.com/curuba/?c=Sales&a=Detail&id=" + id);
