@@ -52,13 +52,19 @@ class SalesController{
     $cuponsPrice=explode(",",$_REQUEST['cuponPrice']);;
     $card=$_REQUEST['card'];
     $total_price=$_REQUEST['cash'];
+    $cashReal=$_REQUEST['cashReal'];
     $total_cupons=array_sum($cuponsPrice);
-    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice);
+    $id = $this->sales->save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal);
     echo $id;
 
   }
 
   public function Refund(){
+    $id = $this->sales->getId($_REQUEST['id']);
+    require_once 'views/sales/refund.php';
+  }
+
+  public function RefundSave(){
     require_once "middlewares/check.php";
     $item = new stdClass();
     $item->userId = $_SESSION["id-CRB"];

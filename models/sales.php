@@ -83,7 +83,6 @@ class Sales {
             FROM sales 
             WHERE createdAt >= ?
             AND createdAt <= ? 
-            AND cancelledAt is null
             ");
             $stm->execute(array($initial,$final));
             return $stm->fetch(PDO::FETCH_OBJ);
@@ -98,7 +97,6 @@ class Sales {
             $stm = $this->pdo->prepare("SELECT sum(qty) as total
             FROM sales_detail
             WHERE productId = '$productId'
-            AND cancelledAt is null
             ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
@@ -108,16 +106,17 @@ class Sales {
         }
     }
 
-    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice) {
+    public function save($productId,$qty,$total_price,$price,$obs,$userId,$returned,$discount,$card,$total_cupons,$cupons,$cuponsPrice,$cashReal) {
         try {
-            $sql = "INSERT INTO sales (cash,card,ticket,obs,userId,returned,discount) VALUES (
+            $sql = "INSERT INTO sales (cash,card,ticket,obs,userId,returned,discount,cashReal) VALUES (
                 '$total_price',
                 '$card',
                 '$total_cupons',
                 '$obs',
                 '$userId',
                 '$returned',
-                '$discount'
+                '$discount',
+                '$cashReal'
                 )";
             $this->pdo->prepare($sql)->execute();
         }
@@ -154,27 +153,5 @@ class Sales {
         return $lastId;
     }
 
-    public function refund($saleId) {
-        try {
-            $sql = "UPDATE sales SET 
-            cancelledAt = now()
-            WHERE id = '$saleId'
-            ";
-            $this->pdo->prepare($sql)->execute();
-        }
-            catch (Exception $e) {
-            die($e->getMessage());
-        }
-        try {
-            $sql = "UPDATE sales_detail SET 
-            cancelledAt = now()
-            WHERE saleId = '$saleId'
-            ";
-            $this->pdo->prepare($sql)->execute();
-        }
-            catch (Exception $e) {
-            die($e->getMessage());
-        }
-    }
 
 }

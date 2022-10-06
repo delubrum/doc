@@ -22,7 +22,7 @@
                                 <div class="col-6 font-weight-bold text-right">
                                     TOTAL:
                                 </div>
-                                <div id="total" class="col-6 font-weight-bold text-right">€ 0</div>
+                                <div id="total" class="col-6 font-weight-bold text-right">0</div>
 
                             </div>
                         </div>
@@ -39,7 +39,7 @@
 <div class="modal fade" id="sell" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form method="post" id="product_add">
+            <form method="post" id="SaleForm">
                 <div class="modal-body">
                     <div class="row" id="payment_info">
                             <div class="col-sm-4">
@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <label>* Forma de Pago</label>
                                     <div class="input-group">
-                                        <select class="form-control" id="payType">
+                                        <select class="form-control" id="payType" required>
                                             <option value=""></option>
                                             <option value="1">Efectivo</option>
                                             <option value="2">Tarjeta</option>
@@ -138,7 +138,18 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>* Efectivo Entregado</label>
+                                    <div class="input-group">
+                                        <input id="cashReal"
+                                            data-inputmask="'alias': 'numeric', 'groupSeparator': '', 'digits': 2, 'digitsOptional': false, 'prefix': '', 'placeholder': '0'"
+                                            class="form-control" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>* Cambio</label>
                                     <div class="input-group">
@@ -158,7 +169,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="sale_save_send" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
         </div>
@@ -239,6 +250,13 @@ $(document).on("keydown", "form", function(event) {
 });
 
 function Calc() {
+    if ($('#payType').val() == 1) {
+        $('#cash').val($('#payTotal').val());
+    }
+
+    if ($('#payType').val() == 2) {
+        $('#card').val($('#payTotal').val());
+    }
     var cuponPrice = $("input[name='cuponPrice[]']").map(function(){return $(this).val();}).get();
     price = cuponPrice.reduce((a, b) => parseFloat(a) + parseFloat(b), 0);
     total = parseFloat($('#total').html());
@@ -246,8 +264,8 @@ function Calc() {
     payTotal = (total - (total * (discount/100))).toFixed(2);
     $('#payTotal').val(payTotal);
     cash = parseFloat($('#cash').val());
+    cashReal = parseFloat($('#cashReal').val());
     card = parseFloat($('#card').val());
-    returned = cash-payTotal;
     payedTotal = cash+card+price;
     diference = payTotal-payedTotal;
     $('#cuponTotal').val(price.toFixed(2));
@@ -255,17 +273,15 @@ function Calc() {
     $('#diference').val((diference).toFixed(2));
     if(diference != 0) { $('#diference').css("background-color", "red");}
     if(diference == 0) { $('#diference').css("background-color", "#69c58d");}
-    if ($('#payType').val() == 2) {
-        $('#card').val($('#payTotal').val());
-    }
-    if ($('#payType').val() == 1) {
+    returned = cashReal-payTotal;
+    if ($('#payType').val() == 1 || $('#payType').val() == 4 || $('#payType').val() == 5 || $('#payType').val() == 7) {
         $('#returned').val(returned.toFixed(2));
     } else {
         $('#returned').val(0);
     }
 }
 
-$(document).on('input', '#cash,#card,#discount', function() {
+$(document).on('input', '#cash,#card,#cashReal,#discount', function() {
     Calc();
 });
 
@@ -408,11 +424,13 @@ $(document).on('input', '#product_search', function(e) {
     });
 });
 
-$('#sale_save_send').on('click', function(e) {
+$(document).on('submit', '#SaleForm', function(e) {
+    e.preventDefault();
     var cuponPrice = $("input[name='cuponPrice[]']").map(function(){return $(this).val();}).get();
     var cupons = $("input[name='cuponId[]']").map(function(){return $(this).val();}).get();
     payTotal = $('#payTotal').val();
     cash = parseFloat($('#cash').val());
+    cashReal = parseFloat($('#cashReal').val());
     card = parseFloat($('#card').val());
     if (payTotal == 0) {
         toastr.error('No ha ingresado ningún producto');
@@ -425,7 +443,7 @@ $('#sale_save_send').on('click', function(e) {
     returned = parseFloat($("#returned").val());
     discount = parseFloat($("#discount").val());
     obs = $("#obs").val();
-    if (document.getElementById("sale_save").checkValidity()) {
+    if (document.getElementById("SaleForm").checkValidity()) {
         e.preventDefault();
         Swal.fire({
             title: 'Deseas Guardar la Venta?',
@@ -466,9 +484,13 @@ $('#sale_save_send').on('click', function(e) {
                     name: 'cash',
                     value: cash
                 });
+                data.push({
+                    name: 'cashReal',
+                    value: cashReal
+                });
                 $.post("?c=Sales&a=Save", data, function(data) {
                     id = data.trim();
-                    window.open("http://aei-sigma.com/curuba/admin/?c=Sales&a=Detail&id=" + id);
+                    window.open("http://aei-sigma.com/curuba/?c=Sales&a=Detail&id=" + id);
                     location.reload();
                 });
             }
@@ -478,8 +500,11 @@ $('#sale_save_send').on('click', function(e) {
 
 $(document).on("change", "#payType", function(e) {
     if ($(this).val() == 1) {
-        $('#cash').prop('readonly', false);
-        $('#cash').prop('required', true);
+        $('#cash').prop('readonly', true);
+        $('#cash').prop('required', false);
+
+        $('#cashReal').prop('readonly', false);
+        $('#cashReal').prop('required', true);
 
         $('#card').prop('readonly', true);
         $('#card').prop('required', false);
@@ -494,6 +519,10 @@ $(document).on("change", "#payType", function(e) {
         $('#cash').prop('required', false);
         $('#cash').val(0);
 
+        $('#cashReal').prop('readonly', true);
+        $('#cashReal').prop('required', false);
+        $('#cashReal').val(0);
+
         $('#card').prop('readonly', true);
         $('#card').prop('required', true);
         $('#card').val($('#payTotal').val());
@@ -507,6 +536,10 @@ $(document).on("change", "#payType", function(e) {
         $('#cash').prop('required', false);
         $('#cash').val(0);
 
+        $('#cashReal').prop('readonly', true);
+        $('#cashReal').prop('required', false);
+        $('#cashReal').val(0);
+
         $('#card').prop('readonly', true);
         $('#card').prop('required', false);
         $('#card').val(0);
@@ -517,11 +550,15 @@ $(document).on("change", "#payType", function(e) {
     if ($(this).val() == 4) {
         $('#cash').prop('readonly', false);
         $('#cash').prop('required', true);
-        $('#cash').val(0);
+        $('#cash').val('');
+
+        $('#cashReal').prop('readonly', false);
+        $('#cashReal').prop('required', true);
+        $('#cashReal').val('');
 
         $('#card').prop('readonly', false);
         $('#card').prop('required', true);
-        $('#card').val(0);
+        $('#card').val('');
 
         $('#addCupon').prop('disabled', true);
 
@@ -530,7 +567,11 @@ $(document).on("change", "#payType", function(e) {
     if ($(this).val() == 5) {
         $('#cash').prop('readonly', false);
         $('#cash').prop('required', true);
-        $('#cash').val(0);
+        $('#cash').val('');
+
+        $('#cashReal').prop('readonly', false);
+        $('#cashReal').prop('required', true);
+        $('#cashReal').val('');
 
         $('#card').prop('readonly', true);
         $('#card').prop('required', false);
@@ -543,20 +584,28 @@ $(document).on("change", "#payType", function(e) {
         $('#cash').prop('required', false);
         $('#cash').val(0);
 
+        $('#cashReal').prop('readonly', true);
+        $('#cashReal').prop('required', false);
+        $('#cashReal').val(0);
+
         $('#card').prop('readonly', false);
         $('#card').prop('required', true);
-        $('#card').val(0);
+        $('#card').val('');
 
         $('#addCupon').prop('disabled', false);
     }
     if ($(this).val() == 7) {
         $('#cash').prop('readonly', false);
         $('#cash').prop('required', true);
-        $('#cash').val(0);
+        $('#cash').val('');
+
+        $('#cashReal').prop('readonly', false);
+        $('#cashReal').prop('required', true);
+        $('#cashReal').val('');
 
         $('#card').prop('readonly', false);
         $('#card').prop('required', true);
-        $('#card').val(0);
+        $('#card').val('');
 
         $('#addCupon').prop('disabled', false);
     }

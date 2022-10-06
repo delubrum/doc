@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->sales->list($filters . "and cancelledAt is null") as $r) { 
+        <h3>TOTAL: <span class="text-primary">$ <?php $suma = 0; foreach($this->sales->list($filters) as $r) { 
             $suma += $r->cash;
         }
         echo $suma;
@@ -96,7 +96,10 @@ $(document).on('click', '.new', function(e) {
 $(document).on('click', '.refund', function(e) {
     e.stopImmediatePropagation();
     id = $(this).data('id');
-    $('#refund #saleId').val(id);
+    $.post( "?c=Sales&a=Refund", { id }).done(function( data ) {
+        $('#lgModal').modal('toggle');
+        $('#lgModal .modal-content').html(data);
+    });
 });
 
 $(document).ready(function() {
