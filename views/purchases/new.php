@@ -26,7 +26,7 @@
                                              $color = mb_convert_case($r->color, MB_CASE_UPPER, "UTF-8");
                                              $price = $r->price;
                                             ?>
-                                        <option value='<?php echo $r->id ?>'><?php echo "$description / $size / $color / $$price" ?></option>
+                                        <option value='<?php echo $r->id ?>'><?php echo "$r->code / $description / $size / $color / $$price" ?></option>
                                         <?php } ?>
 
                                     </select>

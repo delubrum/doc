@@ -6,9 +6,10 @@
             <th>Productos</th>
             <th>Precio Total</th>
             <th>Descuento</th>
-            <th>Total Pagado</th>
+            <th>Total con descuento</th>
             <th>Forma de Pago</th>
             <th>Observaciones</th>
+            <th>Devoluciones</th>
             <th>Usuario</th>
             <th>Acción</th>
         </tr>
@@ -19,10 +20,17 @@
             <td><?php echo $r->id ?></td>
             <td><?php echo $r->createdAt ?></td>
             <td>
-                <?php foreach($this->sales->listDetail($r->id) as $b) {
-                    echo mb_convert_case($b->description, MB_CASE_TITLE, "UTF-8") . " x " . $b->qty . "<br>";
-                } 
-                ?>
+                <?php foreach($this->sales->listDetail($r->id) as $b) { ?>
+                    <span title="Original: <?php echo $b->qty?>
+                    <?php foreach($this->sales->listRefunds($b->productId) as $c) {
+                        echo "\nDevolución: $c->qty ($c->createdAt)";
+                    }
+                    ?>">
+                    <?php 
+                    
+                    ($this->sales->SumRefunds($b->saleId,$b->productId)->total) ? $refunds = $this->sales->SumRefunds($b->saleId,$b->productId)->total : $refunds = 0;
+                    echo $b->code . " " . mb_convert_case($b->description, MB_CASE_TITLE, "UTF-8") . " x " . ($b->qty - $refunds) . "</span><br>";?>
+                <?php } ?>
             </td>
             <td class="text-right"><?php echo number_format($r->total,2) ?></td>
             <td class="text-center"><?php echo $r->discount ?>%</td>
@@ -34,6 +42,7 @@
                 <?php echo ($r->ticket != 0) ? "<b>Tickets: </b>" . number_format($r->ticket,2) : '' ?>
             </td>
             <td><?php echo $r->obs ?></td>
+            <td class="text-right text-red"><?php echo $this->sales->getRefunds($r->id)->price ?></td>
             <td><?php echo $r->username ?></td>
             <td class="text-right">
                 <?php if (in_array(12, $permissions)) { ?> <button type="button" class="btn btn-danger refund" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Devolucion"> <i class="fas fa-redo"></i> </button> <?php } ?>

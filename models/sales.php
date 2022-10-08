@@ -32,7 +32,7 @@ class Sales {
 
     public function listDetail($id) {
         try {
-            $stm = $this->pdo->prepare("SELECT a.*, b.description
+            $stm = $this->pdo->prepare("SELECT a.*, b.description, LPAD(b.id,7,'0') as code
             FROM sales_detail a
             LEFT JOIN products b
             ON a.productId = b.id
@@ -61,13 +61,43 @@ class Sales {
         }
     }
 
-    public function getRefund($id){
+    public function getRefunds($id){
         try {
             $stm = $this->pdo->prepare("SELECT *, b.username
             FROM refunds a
             LEFT JOIN users b
             ON a.userId = b.id
             WHERE saleId = $id
+            ");
+            $stm->execute();
+            return $stm->fetch(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function listRefunds($id) {
+        try {
+            $stm = $this->pdo->prepare("SELECT *
+            FROM refunds_detail
+            WHERE productId = $id
+            ORDER BY id ASC
+            ");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_OBJ);
+        }
+            catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public function SumRefunds($saleId,$productId){
+        try {
+            $stm = $this->pdo->prepare("SELECT sum(qty) as total
+            FROM refunds_detail
+            WHERE saleId = '$saleId'
+            AND productId = '$productId';
             ");
             $stm->execute();
             return $stm->fetch(PDO::FETCH_OBJ);
@@ -155,12 +185,13 @@ class Sales {
     }
 
 
-    public function refundSave($saleId,$cause,$userId,$refund){
+    public function refundSave($saleId,$cause,$userId,$total,$productId,$price,$qty){
         try {
-            $sql = "INSERT INTO refunds (saleId,cause,userId) VALUES (
+            $sql = "INSERT INTO refunds (saleId,cause,userId,price) VALUES (
             '$saleId',
             '$cause',
-            '$userId'
+            '$userId',
+            '$total'
             )";
 			$this->pdo->prepare($sql)->execute();
         }
@@ -171,14 +202,10 @@ class Sales {
         $lastId = $this->pdo->lastInsertId();
 
         try {
-            $sql = "INSERT INTO refunds_detail (refundId,productId,price,qty) VALUES";
-            foreach($refund as $k => $v) {
-                $sql.="('$lastId','$k',";
-                foreach($v as $ke => $va) {
-                    $sql.="'$ke',";
-                    $sql.="'$va'),";
-                }
-            }
+            $sql = "INSERT INTO refunds_detail (refundId,saleId,productId,price,qty) VALUES";
+			foreach($productId as $k => $r){
+				$sql.="('$lastId','$saleId','$r','$price[$k]','$qty[$k]'),";
+			}
 			$sql=rtrim($sql,',');
 			$this->pdo->prepare($sql)->execute();
         }

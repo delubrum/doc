@@ -21,7 +21,9 @@
                 <div class="form-group">
                     <label>* Catidad</label>
                     <div class="input-group">
-                        <input type="number" class="form-control" max="<?php echo $b->qty?>" min="0" step="1" name="refund[<?php echo $b->id ?>][<?php echo $b->price/$b->qty ?>]" required>
+                        <input type="number" class="form-control" max="<?php echo $b->qty?>" min="0" step="1" name="qty[]" required>
+                        <input type="hidden" value="<?php echo $b->id ?>" name="productId[]">
+                        <input type="hidden" value="<?php echo $b->price/$b->qty ?>" name="price[]">
                     </div>
                 </div>
             </div>

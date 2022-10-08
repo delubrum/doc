@@ -70,8 +70,11 @@ class SalesController{
     $userId = $_SESSION["id-CRB"];
     $saleId = $_REQUEST['saleId'];
     $cause = $_REQUEST['cause'];
-    $refund = $_REQUEST['refund'];
-    $this->sales->refundSave($saleId,$cause,$userId,$refund);
+    $qty = $_REQUEST['qty'];
+    $productId = $_REQUEST['productId'];
+    $price = $_REQUEST['price'];
+    $total = array_sum($price);
+    $this->sales->refundSave($saleId,$cause,$userId,$total,$productId,$price,$qty);
   }
 
   public function Detail(){

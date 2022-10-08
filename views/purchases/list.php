@@ -16,7 +16,7 @@
         <tr>
             <td><?php echo $r->id ?></td>
             <td><?php echo $r->createdAt ?></td>
-            <td><?php echo $r->description ?></td>
+            <td><?php echo $r->code ?> <?php echo $r->description ?></td>
             <td><?php echo $r->name ?></td>
             <td><?php echo $r->qty ?></td>
             <td><?php echo number_format($r->price,2) ?></td>

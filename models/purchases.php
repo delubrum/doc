@@ -14,7 +14,7 @@ class Purchases {
 
     public function list($filters = '') {
         try {
-            $stm = $this->pdo->prepare("SELECT a.*, b.description, c.name
+            $stm = $this->pdo->prepare("SELECT a.*, b.description, LPAD(b.id,7,'0') as code, c.name
             FROM purchases a
             LEFT JOIN products b
             ON a.productId = b.id
