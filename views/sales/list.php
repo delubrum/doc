@@ -42,7 +42,7 @@
                 <?php echo ($r->ticket != 0) ? "<b>Tickets: </b>" . number_format($r->ticket,2) : '' ?>
             </td>
             <td><?php echo $r->obs ?></td>
-            <td class="text-right text-red"><?php echo $this->sales->getRefunds($r->id)->price ?></td>
+            <td class="text-right text-red"><?php echo isset($this->sales->getRefunds($r->id)->price) ? $this->sales->getRefunds($r->id)->price : '' ?></td>
             <td><?php echo $r->username ?></td>
             <td class="text-right">
                 <?php if (in_array(12, $permissions)) { ?> <button type="button" class="btn btn-danger refund" data-toggle="tooltip" data-placement="top" data-id="<?php echo $r->id; ?>" title="Devolucion"> <i class="fas fa-redo"></i> </button> <?php } ?>
